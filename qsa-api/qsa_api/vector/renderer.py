@@ -39,7 +39,7 @@ class VectorSymbologyRenderer:
         symbol = renderer.symbol()
         props = symbol.symbolLayer(0).properties()
         opacity = symbol.opacity()
-
+        
         geom = "line"
         symbol = QgsSymbol.symbolTypeToString(symbol.type()).lower()
         if symbol == "fill":
@@ -57,5 +57,5 @@ class VectorSymbologyRenderer:
 
         m["rendering"] = {}
         m["rendering"]["opacity"] = opacity
-
+        print("là ",m)
         return m, ""
