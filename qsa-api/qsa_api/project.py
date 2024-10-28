@@ -10,7 +10,6 @@ from qgis.core import (
     Qgis,
     QgsSymbol,
     QgsProject,
-    qLayer,
     QColor,
     QgsWkbTypes,
     QgsFillSymbol,
