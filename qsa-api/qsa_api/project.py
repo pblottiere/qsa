@@ -657,7 +657,7 @@ class QSAProject:
             ranges.append(range5)
 
             render = QgsGraduatedSymbolRenderer(attribut, ranges)
-            render.setMode(QgsGraduatedSymbolRenderer.Manual) 
+            render.setMode(QgsGraduatedSymbolRenderer.Quantile) 
         elif symbol == "line":
             render = QgsSingleSymbolRenderer(
                 QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
