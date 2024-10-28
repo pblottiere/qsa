@@ -10,7 +10,6 @@ from qgis.core import (
     Qgis,
     QgsSymbol,
     QgsProject,
-    QColor,
     QgsWkbTypes,
     QgsFillSymbol,
     QgsLineSymbol,
@@ -629,27 +628,27 @@ class QSAProject:
             attribut = "st_length_shape"
             ranges = []
             symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol1.setColor(QColor("#30123b"))
+            symbol1.setColor("#30123b")
             range1 = QgsRendererRange(0, 50, symbol1, "65-357")
             ranges.append(range1)
 
             symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol2.setColor(QColor("#28bceb"))
+            symbol2.setColor("#28bceb")
             range2 = QgsRendererRange(50, 100, symbol2, "357-630")
             ranges.append(range2)
 
             symbol3 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol3.setColor(QColor("#a4fc3c"))
+            symbol3.setColor("#a4fc3c")
             range3 = QgsRendererRange(100, 200, symbol3, "630-1057")
             ranges.append(range3)
 
             symbol4 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol4.setColor(QColor("#fb7e21"))
+            symbol4.setColor("#fb7e21")
             range4 = QgsRendererRange(100, 200, symbol4, "1057-1791")
             ranges.append(range4)
 
             symbol5 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol5.setColor(QColor("#7a0403"))
+            symbol5.setColor("#7a0403")
             range5 = QgsRendererRange(100, 200, symbol5, "1791-11039")
             ranges.append(range5)
 
