@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 class QSA:
     def __init__(self) -> None:
-        print("Run DEBUG MODE : filter_branch")
+        print("Run DEBUG MODE : filter_branch**********")
         self.cfg = QSAConfig()
         if not self.cfg.is_valid:
             return
