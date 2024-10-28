@@ -629,23 +629,23 @@ class QSAProject:
             attribut = "st_length_shape"
             ranges = []
             properties["color"]="#30123b"
-            range1 = QgsRendererRange(0, 50, QgsLineSymbol.createSimple(properties), "65-357")
+            range1 = QgsRendererRange(65, 357, QgsLineSymbol.createSimple(properties), "65-357")
             ranges.append(range1)
 
             properties["color"]="#28bceb"
-            range2 = QgsRendererRange(50, 100, QgsLineSymbol.createSimple(properties), "357-630")
+            range2 = QgsRendererRange(357, 630, QgsLineSymbol.createSimple(properties), "357-630")
             ranges.append(range2)
 
             properties["color"]="#a4fc3c"
-            range3 = QgsRendererRange(100, 200, QgsLineSymbol.createSimple(properties), "630-1057")
+            range3 = QgsRendererRange(630, 1057, QgsLineSymbol.createSimple(properties), "630-1057")
             ranges.append(range3)
 
             properties["color"]="#fb7e21"
-            range4 = QgsRendererRange(100, 200, QgsLineSymbol.createSimple(properties), "1057-1791")
+            range4 = QgsRendererRange(1057, 1791, QgsLineSymbol.createSimple(properties), "1057-1791")
             ranges.append(range4)
 
             properties["color"]="#7a0403"
-            range5 = QgsRendererRange(100, 200, QgsLineSymbol.createSimple(properties), "1791-11039")
+            range5 = QgsRendererRange(1791, 11039, QgsLineSymbol.createSimple(properties), "1791-11039")
             ranges.append(range5)
 
             render = QgsGraduatedSymbolRenderer(attribut, ranges)
