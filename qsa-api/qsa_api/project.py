@@ -5,7 +5,7 @@ import shutil
 import sqlite3
 from pathlib import Path
 
-from qgis.PyQt.QtCore import Qt, QDateTime
+from qgis.PyQt.QtCore import Qt, QDateTime,QColor
 from qgis.core import (
     Qgis,
     QgsSymbol,
@@ -628,24 +628,31 @@ class QSAProject:
         if symbology["type"] != "single_symbol" and symbology["type"] == "graduated" :
             attribut = "st_length_shape"
             ranges = []
-            properties["color"]="#30123b"
-            range1 = QgsRendererRange(65, 357, QgsLineSymbol.createSimple(properties), "65-357")
+
+
+            symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol1.setColor(QColor("#fecc5c"))
+            range1 = QgsRendererRange(65, 357, symbol1, "65-357")
             ranges.append(range1)
 
-            properties["color"]="#28bceb"
-            range2 = QgsRendererRange(357, 630, QgsLineSymbol.createSimple(properties), "357-630")
+            symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol2.setColor(QColor("#28bceb"))
+            range2 = QgsRendererRange(357, 630, symbol2, "357-630")
             ranges.append(range2)
 
-            properties["color"]="#a4fc3c"
-            range3 = QgsRendererRange(630, 1057, QgsLineSymbol.createSimple(properties), "630-1057")
+            symbol3 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol3.setColor(QColor("#a4fc3c"))
+            range3 = QgsRendererRange(630, 1057, symbol3, "630-1057")
             ranges.append(range3)
 
-            properties["color"]="#fb7e21"
-            range4 = QgsRendererRange(1057, 1791, QgsLineSymbol.createSimple(properties), "1057-1791")
+            symbol4 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol4.setColor(QColor("#fb7e21"))
+            range4 = QgsRendererRange(1057, 1791, symbol4, "1057-1791")
             ranges.append(range4)
 
-            properties["color"]="#7a0403"
-            range5 = QgsRendererRange(1791, 11039, QgsLineSymbol.createSimple(properties), "1791-11039")
+            symbol5 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol5.setColor(QColor("#7a0403"))
+            range5 = QgsRendererRange(1791, 11039, symbol5, "1791-11039")
             ranges.append(range5)
 
             render = QgsGraduatedSymbolRenderer(attribut, ranges)
