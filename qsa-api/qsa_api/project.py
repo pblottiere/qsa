@@ -621,7 +621,7 @@ class QSAProject:
         
 
         render = None
-        qLayer = QgsVectorLayer()
+        vl = QgsVectorLayer()
         symbol = symbology["symbol"]
         properties = symbology["properties"]
 
@@ -694,14 +694,14 @@ class QSAProject:
             render.setSymbol(symbol)
 
         if "opacity" in rendering:
-            qLayer.setOpacity(float(rendering["opacity"]))
+            vl.setOpacity(float(rendering["opacity"]))
 
         if render:
-            qLayer.setRenderer(render)
+            vl.setRenderer(render)
 
             path = self._qgis_project_dir / f"{name}.qml"
-            qLayer.saveNamedStyle(
-                path.as_posix(), categories=qLayer.Symbology
+            vl.saveNamedStyle(
+                path.as_posix(), categories=vl.Symbology
             )
             return True, ""
 
