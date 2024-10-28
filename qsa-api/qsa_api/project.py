@@ -628,29 +628,24 @@ class QSAProject:
         if symbology["type"] != "single_symbol" and symbology["type"] == "graduated" :
             attribut = "st_length_shape"
             ranges = []
-            symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol1.setColor("#30123b")
-            range1 = QgsRendererRange(0, 50, symbol1, "65-357")
+            properties["color"]="#30123b"
+            range1 = QgsRendererRange(0, 50, QgsLineSymbol.createSimple(properties), "65-357")
             ranges.append(range1)
 
-            symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol2.setColor("#28bceb")
-            range2 = QgsRendererRange(50, 100, symbol2, "357-630")
+            properties["color"]="#28bceb"
+            range2 = QgsRendererRange(50, 100, QgsLineSymbol.createSimple(properties), "357-630")
             ranges.append(range2)
 
-            symbol3 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol3.setColor("#a4fc3c")
-            range3 = QgsRendererRange(100, 200, symbol3, "630-1057")
+            properties["color"]="#a4fc3c"
+            range3 = QgsRendererRange(100, 200, QgsLineSymbol.createSimple(properties), "630-1057")
             ranges.append(range3)
 
-            symbol4 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol4.setColor("#fb7e21")
-            range4 = QgsRendererRange(100, 200, symbol4, "1057-1791")
+            properties["color"]="#fb7e21"
+            range4 = QgsRendererRange(100, 200, QgsLineSymbol.createSimple(properties), "1057-1791")
             ranges.append(range4)
 
-            symbol5 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol5.setColor("#7a0403")
-            range5 = QgsRendererRange(100, 200, symbol5, "1791-11039")
+            properties["color"]="#7a0403"
+            range5 = QgsRendererRange(100, 200, QgsLineSymbol.createSimple(properties), "1791-11039")
             ranges.append(range5)
 
             render = QgsGraduatedSymbolRenderer(attribut, ranges)
