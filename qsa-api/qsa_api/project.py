@@ -10,7 +10,8 @@ from qgis.core import (
     Qgis,
     QgsSymbol,
     QgsProject,
-    QgsMapLayer,
+    qLayer,
+    QColor,
     QgsWkbTypes,
     QgsFillSymbol,
     QgsLineSymbol,
@@ -19,12 +20,14 @@ from qgis.core import (
     QgsRasterLayer,
     QgsMarkerSymbol,
     QgsDateTimeRange,
+    QgsRendererRange,
     QgsRasterMinMaxOrigin,
     QgsContrastEnhancement,
     QgsSingleSymbolRenderer,
     QgsSimpleFillSymbolLayer,
     QgsSimpleLineSymbolLayer,
     QgsSimpleMarkerSymbolLayer,
+    QgsGraduatedSymbolRenderer,
     QgsRasterLayerTemporalProperties,
 )
 
@@ -248,7 +251,6 @@ class QSAProject:
         project.read(self._qgis_project_uri, flags)
 
         style_path = self._qgis_project_dir / f"{style_name}.qml"
-        logger().debug(f"**************** ici : {style_path.name}")
         layer = project.mapLayersByName(layer_name)[0]
 
         if style_name not in layer.styleManager().styles():
@@ -266,7 +268,7 @@ class QSAProject:
 
             # refresh min/max for the current layer if necessary
             # (because the style is built on an empty geotiff)
-            if layer.type() == QgsMapLayer.RasterLayer:
+            if layer.type() == qLayer.RasterLayer:
                 self.debug("Refresh symbology renderer min/max")
                 renderer = RasterSymbologyRenderer(layer.renderer().type())
                 renderer.refresh_min_max(layer)
@@ -599,7 +601,7 @@ class QSAProject:
             # save
             path = self._qgis_project_dir / f"{name}.qml"
             rl.saveNamedStyle(
-                path.as_posix(), categories=QgsMapLayer.AllStyleCategories
+                path.as_posix(), categories=qLayer.AllStyleCategories
             )
             return True, ""
 
@@ -616,17 +618,46 @@ class QSAProject:
 
         if "properties" not in symbology:
             return False, "`properties` is missing in `symbology`"
+        
 
-        if symbology["type"] != "single_symbol":
-            return False, "Invalid symbol"
-
-        r = None
-        vl = QgsVectorLayer()
+        render = None
+        qLayer = QgsVectorLayer()
         symbol = symbology["symbol"]
         properties = symbology["properties"]
 
-        if symbol == "line":
-            r = QgsSingleSymbolRenderer(
+
+        if symbology["type"] != "single_symbol" and symbology["type"] == "graduated" :
+            attribut = "st_length_shape"
+            ranges = []
+            symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol1.setColor(QColor("#30123b"))
+            range1 = QgsRendererRange(0, 50, symbol1, "65-357")
+            ranges.append(range1)
+
+            symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol2.setColor(QColor("#28bceb"))
+            range2 = QgsRendererRange(50, 100, symbol2, "357-630")
+            ranges.append(range2)
+
+            symbol3 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol3.setColor(QColor("#a4fc3c"))
+            range3 = QgsRendererRange(100, 200, symbol3, "630-1057")
+            ranges.append(range3)
+
+            symbol4 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol4.setColor(QColor("#fb7e21"))
+            range4 = QgsRendererRange(100, 200, symbol4, "1057-1791")
+            ranges.append(range4)
+
+            symbol5 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            symbol5.setColor(QColor("#7a0403"))
+            range5 = QgsRendererRange(100, 200, symbol5, "1791-11039")
+            ranges.append(range5)
+
+            render = QgsGraduatedSymbolRenderer(attribut, ranges)
+            render.setMode(QgsGraduatedSymbolRenderer.EqualInterval) 
+        elif symbol == "line":
+            render = QgsSingleSymbolRenderer(
                 QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
             )
 
@@ -636,9 +667,9 @@ class QSAProject:
                     return False, "Invalid properties"
 
             symbol = QgsLineSymbol.createSimple(properties)
-            r.setSymbol(symbol)
+            render.setSymbol(symbol)
         elif symbol == "fill":
-            r = QgsSingleSymbolRenderer(
+            render = QgsSingleSymbolRenderer(
                 QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
             )
 
@@ -648,9 +679,9 @@ class QSAProject:
                     return False, "Invalid properties"
 
             symbol = QgsFillSymbol.createSimple(properties)
-            r.setSymbol(symbol)
+            render.setSymbol(symbol)
         elif symbol == "marker":
-            r = QgsSingleSymbolRenderer(
+            render = QgsSingleSymbolRenderer(
                 QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry)
             )
 
@@ -660,17 +691,17 @@ class QSAProject:
                     return False, "Invalid properties"
 
             symbol = QgsMarkerSymbol.createSimple(properties)
-            r.setSymbol(symbol)
+            render.setSymbol(symbol)
 
         if "opacity" in rendering:
-            vl.setOpacity(float(rendering["opacity"]))
+            qLayer.setOpacity(float(rendering["opacity"]))
 
-        if r:
-            vl.setRenderer(r)
+        if render:
+            qLayer.setRenderer(render)
 
             path = self._qgis_project_dir / f"{name}.qml"
-            vl.saveNamedStyle(
-                path.as_posix(), categories=QgsMapLayer.Symbology
+            qLayer.saveNamedStyle(
+                path.as_posix(), categories=qLayer.Symbology
             )
             return True, ""
 

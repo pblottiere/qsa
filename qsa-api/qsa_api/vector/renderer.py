@@ -57,5 +57,4 @@ class VectorSymbologyRenderer:
 
         m["rendering"] = {}
         m["rendering"]["opacity"] = opacity
-        print("là ",m)
         return m, ""
