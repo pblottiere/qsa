@@ -600,7 +600,7 @@ class QSAProject:
             # save
             path = self._qgis_project_dir / f"{name}.qml"
             rl.saveNamedStyle(
-                path.as_posix(), categories=qLayer.AllStyleCategories
+                path.as_posix(), categories=QgsMapLayer.AllStyleCategories
             )
             return True, ""
 
