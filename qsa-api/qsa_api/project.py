@@ -11,6 +11,7 @@ from qgis.core import (
     QgsSymbol,
     QgsProject,
     QgsWkbTypes,
+    QgsMapLayer,
     QgsFillSymbol,
     QgsLineSymbol,
     QgsApplication,
