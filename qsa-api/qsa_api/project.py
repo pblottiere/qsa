@@ -248,7 +248,7 @@ class QSAProject:
         project.read(self._qgis_project_uri, flags)
 
         style_path = self._qgis_project_dir / f"{style_name}.qml"
-
+        print(style_path)
         layer = project.mapLayersByName(layer_name)[0]
 
         if style_name not in layer.styleManager().styles():
