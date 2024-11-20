@@ -22,7 +22,6 @@ from qgis.core import (
     QgsRasterLayer,
     QgsMarkerSymbol,
     QgsDateTimeRange,
-    QgsSourceEffect,
     QgsRendererRange,
     QgsDropShadowEffect,
     QgsRasterMinMaxOrigin,
@@ -30,7 +29,6 @@ from qgis.core import (
     QgsSingleSymbolRenderer,
     QgsSimpleFillSymbolLayer,
     QgsSimpleLineSymbolLayer,
-    QgsSimpleMarkerSymbolLayer,
     QgsGraduatedSymbolRenderer,
     QgsRasterLayerTemporalProperties,
 
@@ -724,7 +722,7 @@ class QSAProject:
                     effect_stack.appendEffect(drop_shadow)
                     
                     # Ajouter l'effet source par-dessus le drop shadow
-                    source_effect = QgsSourceEffect()
+                    source_effect = QgsPaintEffect()
                     source_effect.setDrawMode(QgsPaintEffect.Render)
                     effect_stack.appendEffect(source_effect)
                     
