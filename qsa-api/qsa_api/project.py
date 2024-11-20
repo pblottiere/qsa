@@ -697,42 +697,38 @@ class QSAProject:
                 render.setSymbol(symbol)
             case "marker":
                 render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
-                # properties["outline_width"] = 0.5
-                # properties["outline_style"] = "solid"
-                # properties["outline_color"] = "#232323"
+
                 properties = {
                     "color": "0,255,0",  # Vert
                     "color_border": "0,100,0",  # Vert foncé pour le contour
                     "size": "3",  # Taille du point en mm
                     "shape": "circle"  # Forme circulaire
                 }
-                props = QgsSimpleMarkerSymbolLayer().properties()
-                for key in properties.keys():
-                    if key not in props:
-                        return None
 
                 symbol = QgsMarkerSymbol.createSimple(properties)
-                # Création de l'effet drop shadow
-                effect_stack = QgsEffectStack()
-                
-                # Ajout de la source originale à l'effet stack
-                source_effect = QgsPaintEffect.create({'effect_type': 'source','draw_mode':'ModifyAndRender'})
-                effect_stack.appendEffect(source_effect)
-                drop_shadow = QgsDropShadowEffect()
 
-                # Configuration de l'effet drop shadow pour une ombre légère
+                # Création de l'effet drop shadow
+                drop_shadow = QgsDropShadowEffect()
                 drop_shadow.setColor(QColor(0, 0, 0, 80))  # Noir avec 31% d'opacité
                 drop_shadow.setBlurLevel(2)  # Flou léger
                 drop_shadow.setOffsetAngle(135)
                 drop_shadow.setOffsetDistance(1)  # Distance réduite pour une ombre plus subtile
 
-                # Ajout de l'effet au stack
-                effect_stack.appendEffect(drop_shadow)
-
                 # Application de l'effet au symbole
                 for layer in symbol.symbolLayers():
-                    layer.setPaintEffect(effect_stack)
+                    # Créer un nouvel effet stack pour chaque couche
+                    effect_stack = QgsEffectStack()
                     
+                    # Ajouter l'effet drop shadow
+                    effect_stack.appendEffect(drop_shadow)
+                    
+                    # Ajouter l'effet source par-dessus le drop shadow
+                    source_effect = QgsPaintEffect.create({'effect_type': 'source', 'draw_mode': 'Render'})
+                    effect_stack.appendEffect(source_effect)
+                    
+                    # Appliquer l'effet stack à la couche
+                    layer.setPaintEffect(effect_stack)
+
                 render.setSymbol(symbol)
         return render
 
