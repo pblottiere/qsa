@@ -696,9 +696,15 @@ class QSAProject:
                 render.setSymbol(symbol)
             case "marker":
                 render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
-                properties["outline_width"] = 0.5
-                properties["outline_style"] = "solid"
-                properties["outline_color"] = "#232323"
+                # properties["outline_width"] = 0.5
+                # properties["outline_style"] = "solid"
+                # properties["outline_color"] = "#232323"
+                properties = {
+                    "color": "0,255,0",  # Vert
+                    "color_border": "0,100,0",  # Vert foncé pour le contour
+                    "size": "3",  # Taille du point en mm
+                    "shape": "circle"  # Forme circulaire
+                }
                 props = QgsSimpleMarkerSymbolLayer().properties()
                 for key in properties.keys():
                     if key not in props:
