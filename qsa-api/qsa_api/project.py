@@ -704,18 +704,21 @@ class QSAProject:
                     if key not in props:
                         return None
 
+                symbol = QgsMarkerSymbol.createSimple(properties)
+                # Création de l'effet drop shadow
                 effect_stack = QgsEffectStack()
                 drop_shadow = QgsDropShadowEffect()
 
-                drop_shadow.setColor(QColor(23, 23, 23, 127)) 
-                drop_shadow.setBlurLevel(2.2000)
-                drop_shadow.setOffsetAngle(155)
-                drop_shadow.setOffsetDistance(2.5000)
+                # Configuration de l'effet drop shadow pour une ombre légère
+                drop_shadow.setColor(QColor(0, 0, 0, 80))  # Noir avec 31% d'opacité
+                drop_shadow.setBlurLevel(2)  # Flou léger
+                drop_shadow.setOffsetAngle(135)
+                drop_shadow.setOffsetDistance(1)  # Distance réduite pour une ombre plus subtile
 
+                # Ajout de l'effet au stack
                 effect_stack.appendEffect(drop_shadow)
 
-                symbol = QgsMarkerSymbol.createSimple(properties)
-                
+                # Application de l'effet au symbole
                 for layer in symbol.symbolLayers():
                     layer.setPaintEffect(effect_stack)
                     
