@@ -645,7 +645,7 @@ class QSAProject:
             return True, ""
 
         return False, "Error"
-    def _create_single_symbol_style(symbology: dict) -> (QgsGraduatedSymbolRenderer):
+    def _create_single_symbol_style(self,symbology: dict) -> QgsGraduatedSymbolRenderer:
             attribut = "test"
             ranges = []
             symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
@@ -661,7 +661,7 @@ class QSAProject:
             render = QgsGraduatedSymbolRenderer(attribut, ranges)
             render.setMode(QgsGraduatedSymbolRenderer.Custom) 
 
-    def _create_single_symbol_style(symbology: dict) -> (QgsSingleSymbolRenderer):
+    def _create_single_symbol_style(self,symbology: dict) -> QgsSingleSymbolRenderer:
           
         symbol = symbology["symbol"]
         properties = symbology["properties"]
