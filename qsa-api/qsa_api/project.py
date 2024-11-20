@@ -666,40 +666,42 @@ class QSAProject:
         symbol = symbology["symbol"]
         properties = symbology["properties"]
         
-        if symbol == "line":
-            render = QgsSingleSymbolRenderer(
-                QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            )
+        match symbol: 
+            case "line":
+                render = QgsSingleSymbolRenderer(
+                    QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+                )
 
-            props = QgsSimpleLineSymbolLayer().properties()
-            for key in properties.keys():
-                if key not in props:
-                    return False, "Invalid properties"
+                props = QgsSimpleLineSymbolLayer().properties()
+                for key in properties.keys():
+                    if key not in props:
+                        return None
 
-            symbol = QgsLineSymbol.createSimple(properties)
-            render.setSymbol(symbol)
-        elif symbol == "fill":
-            render = QgsSingleSymbolRenderer(
-                QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
-            )
+                symbol = QgsLineSymbol.createSimple(properties)
+                render.setSymbol(symbol)
+            case "fill":
+                render = QgsSingleSymbolRenderer(
+                    QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
+                )
 
-            props = QgsSimpleFillSymbolLayer().properties()
-            for key in properties.keys():
-                if key not in props:
-                    return False, "Invalid properties"
+                props = QgsSimpleFillSymbolLayer().properties()
+                for key in properties.keys():
+                    if key not in props:
+                        return None
 
-            symbol = QgsFillSymbol.createSimple(properties)
-            render.setSymbol(symbol)
-        elif symbol == "marker":
-            render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
+                symbol = QgsFillSymbol.createSimple(properties)
+                render.setSymbol(symbol)
+            case "marker":
+                render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
+                properties["outline_width"] = 1
+                properties["outline_style"] = "solid"
+                props = QgsSimpleMarkerSymbolLayer().properties()
+                for key in properties.keys():
+                    if key not in props:
+                        return None
 
-            props = QgsSimpleMarkerSymbolLayer().properties()
-            for key in properties.keys():
-                if key not in props:
-                    return False, "Invalid properties"
-
-            symbol = QgsMarkerSymbol.createSimple(properties)
-            render.setSymbol(symbol)
+                symbol = QgsMarkerSymbol.createSimple(properties)
+                render.setSymbol(symbol)
         return render
 
 
