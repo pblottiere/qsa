@@ -715,7 +715,7 @@ class QSAProject:
                 drop_shadow.setColor(QColor(23, 23, 23, 127))  # Couleur noire semi-transparente
                 drop_shadow.setBlurLevel(2.5)
                 drop_shadow.setOffsetAngle(155)
-                drop_shadow.setOffsetDistance(2.2)
+                drop_shadow.setBlurRadius(2.2)
 
                 # Ajout de l'effet au stack
                 effect_stack.appendEffect(drop_shadow)
