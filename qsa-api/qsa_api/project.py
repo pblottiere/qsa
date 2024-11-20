@@ -496,13 +496,13 @@ class QSAProject:
         rendering: dict,
     ) -> (bool, str):
         t = self._layer_type(layer_type)
-
-        if t == Qgis.LayerType.Vector:
-            return self._add_style_vector(name, symbology, rendering)
-        elif t == Qgis.LayerType.Raster:
-            return self._add_style_raster(name, symbology, rendering)
-        elif t is None:
-            return False, "Invalid layer type"
+        match t :
+            case Qgis.LayerType.Vector:
+                return self._add_style_vector(name, symbology, rendering)
+            case  Qgis.LayerType.Raster:
+                return self._add_style_raster(name, symbology, rendering)
+            case other:
+                return False, "Invalid layer type"
 
     def _add_style_raster(
         self, name: str, symbology: dict, rendering: dict
@@ -695,7 +695,7 @@ class QSAProject:
                 render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
                 properties["outline_width"] = 0.5
                 properties["outline_style"] = "solid"
-                properties["outline_color"] = "#000000"
+                properties["outline_color"] = "#232323"
                 props = QgsSimpleMarkerSymbolLayer().properties()
                 for key in properties.keys():
                     if key not in props:
