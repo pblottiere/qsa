@@ -606,7 +606,7 @@ class QSAProject:
             return True, ""
 
         return False, "Error"
-
+  
     def _add_style_vector(
         self, name: str, symbology: dict, rendering: dict
     ) -> (bool, str):
@@ -622,15 +622,32 @@ class QSAProject:
 
         render = None
         vl = QgsVectorLayer()
-        symbol = symbology["symbol"]
-        properties = symbology["properties"]
+        
+        match symbology["type"] : 
+            case "single_symbol": 
+                render = self._create_single_symbol_style(symbology)
+            case "graduated": 
+                render = self._create_graduated_style(symbology)
+            # case "categorized": 
+            #     create_categorized_style(symbology)
 
+        
+        if "opacity" in rendering:
+            vl.setOpacity(float(rendering["opacity"]))
 
-        if symbology["type"] != "single_symbol" and symbology["type"] == "graduated" :
+        if render:
+            vl.setRenderer(render)
+
+            path = self._qgis_project_dir / f"{name}.qml"
+            vl.saveNamedStyle(
+                path.as_posix(), categories=vl.Symbology
+            )
+            return True, ""
+
+        return False, "Error"
+    def _create_single_symbol_style(symbology: dict) -> (QgsGraduatedSymbolRenderer):
             attribut = "test"
             ranges = []
-
-
             symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
             symbol1.setColor(QColor("#fecc5c"))
             range1 = QgsRendererRange(0, 4, symbol1, "65-357")
@@ -643,7 +660,13 @@ class QSAProject:
 
             render = QgsGraduatedSymbolRenderer(attribut, ranges)
             render.setMode(QgsGraduatedSymbolRenderer.Custom) 
-        elif symbol == "line":
+
+    def _create_single_symbol_style(symbology: dict) -> (QgsSingleSymbolRenderer):
+          
+        symbol = symbology["symbol"]
+        properties = symbology["properties"]
+        
+        if symbol == "line":
             render = QgsSingleSymbolRenderer(
                 QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
             )
@@ -668,9 +691,7 @@ class QSAProject:
             symbol = QgsFillSymbol.createSimple(properties)
             render.setSymbol(symbol)
         elif symbol == "marker":
-            render = QgsSingleSymbolRenderer(
-                QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry)
-            )
+            render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
 
             props = QgsSimpleMarkerSymbolLayer().properties()
             for key in properties.keys():
@@ -680,19 +701,6 @@ class QSAProject:
             symbol = QgsMarkerSymbol.createSimple(properties)
             render.setSymbol(symbol)
 
-        if "opacity" in rendering:
-            vl.setOpacity(float(rendering["opacity"]))
-
-        if render:
-            vl.setRenderer(render)
-
-            path = self._qgis_project_dir / f"{name}.qml"
-            vl.saveNamedStyle(
-                path.as_posix(), categories=vl.Symbology
-            )
-            return True, ""
-
-        return False, "Error"
 
     def remove_style(self, name: str) -> bool:
         if name not in self.styles:
