@@ -18,6 +18,7 @@ from qgis.core import (
     QgsApplication,
     QgsVectorLayer,
     QgsEffectStack,
+    QgsPaintEffect,
     QgsRasterLayer,
     QgsMarkerSymbol,
     QgsDateTimeRange,
@@ -713,6 +714,10 @@ class QSAProject:
                 symbol = QgsMarkerSymbol.createSimple(properties)
                 # Création de l'effet drop shadow
                 effect_stack = QgsEffectStack()
+                
+                # Ajout de la source originale à l'effet stack
+                source_effect = QgsPaintEffect.create({'effect_type': 'source'})
+                effect_stack.appendEffect(source_effect)
                 drop_shadow = QgsDropShadowEffect()
 
                 # Configuration de l'effet drop shadow pour une ombre légère
