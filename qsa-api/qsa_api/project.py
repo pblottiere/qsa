@@ -698,7 +698,7 @@ class QSAProject:
                 render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
                 properties["outline_width"] = 0.5
                 properties["outline_style"] = "solid"
-                properties["outline_color"] = "#232323"
+                properties["outline_color"] = "#FFFFFF"
                 props = QgsSimpleMarkerSymbolLayer().properties()
                 for key in properties.keys():
                     if key not in props:
@@ -712,7 +712,7 @@ class QSAProject:
                 drop_shadow = QgsDropShadowEffect()
 
                 # Configuration de l'effet drop shadow
-                drop_shadow.setColor(QColor(0, 0, 0, 127))  # Couleur noire semi-transparente
+                drop_shadow.setColor(QColor(23, 23, 23, 127))  # Couleur noire semi-transparente
                 drop_shadow.setBlurLevel(3)
                 drop_shadow.setOffsetAngle(135)
                 drop_shadow.setOffsetDistance(2)
