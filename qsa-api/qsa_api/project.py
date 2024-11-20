@@ -714,10 +714,11 @@ class QSAProject:
 
                 effect_stack.appendEffect(drop_shadow)
 
+                symbol = QgsMarkerSymbol.createSimple(properties)
+                
                 for layer in symbol.symbolLayers():
                     layer.setPaintEffect(effect_stack)
                     
-                symbol = QgsMarkerSymbol.createSimple(properties)
                 render.setSymbol(symbol)
         return render
 
