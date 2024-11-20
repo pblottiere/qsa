@@ -693,7 +693,7 @@ class QSAProject:
                 render.setSymbol(symbol)
             case "marker":
                 render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
-                properties["outline_width"] = 1
+                properties["outline_width"] = 0.5
                 properties["outline_style"] = "solid"
                 properties["outline_color"] = "#000000"
                 props = QgsSimpleMarkerSymbolLayer().properties()
