@@ -700,6 +700,7 @@ class QSAProject:
 
             symbol = QgsMarkerSymbol.createSimple(properties)
             render.setSymbol(symbol)
+        return render
 
 
     def remove_style(self, name: str) -> bool:
