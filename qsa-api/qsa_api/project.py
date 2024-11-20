@@ -722,8 +722,7 @@ class QSAProject:
                     effect_stack.appendEffect(drop_shadow)
                     
                     # Ajouter l'effet source par-dessus le drop shadow
-                    source_effect = QgsPaintEffect()
-                    source_effect.setDrawMode(QgsPaintEffect.Render)
+                    source_effect = QgsPaintEffect.create({'effect_type': 'source'})
                     effect_stack.appendEffect(source_effect)
                     
                     # Appliquer l'effet stack à la couche
