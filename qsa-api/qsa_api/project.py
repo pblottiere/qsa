@@ -716,7 +716,7 @@ class QSAProject:
                 effect_stack = QgsEffectStack()
                 
                 # Ajout de la source originale à l'effet stack
-                source_effect = QgsPaintEffect.create({'effect_type': 'source'})
+                source_effect = QgsPaintEffect.create({'effect_type': 'source','draw_mode':2})
                 effect_stack.appendEffect(source_effect)
                 drop_shadow = QgsDropShadowEffect()
 
