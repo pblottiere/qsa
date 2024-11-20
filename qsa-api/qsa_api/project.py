@@ -18,7 +18,7 @@ from qgis.core import (
     QgsApplication,
     QgsVectorLayer,
     QgsRasterLayer,
-    QgsPaintEffect,
+    QgsDrawSourceEffect,
     QgsEffectStack,
     QgsDropShadowEffect,
     QgsMarkerSymbol,
@@ -721,7 +721,7 @@ class QSAProject:
                 effect_stack.appendEffect(drop_shadow)
 
                 # Ajout de l'effet source
-                source_effect = QgsPaintEffect()
+                source_effect = QgsDrawSourceEffect()
                 source_effect.setEnabled(True)
                 effect_stack.appendEffect(source_effect)
                 # Application de l'effet au symbole
