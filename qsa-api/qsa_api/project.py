@@ -17,10 +17,12 @@ from qgis.core import (
     QgsLineSymbol,
     QgsApplication,
     QgsVectorLayer,
+    QgsEffectStack,
     QgsRasterLayer,
     QgsMarkerSymbol,
     QgsDateTimeRange,
     QgsRendererRange,
+    QgsDropShadowEffect,
     QgsRasterMinMaxOrigin,
     QgsContrastEnhancement,
     QgsSingleSymbolRenderer,
@@ -29,6 +31,7 @@ from qgis.core import (
     QgsSimpleMarkerSymbolLayer,
     QgsGraduatedSymbolRenderer,
     QgsRasterLayerTemporalProperties,
+
 )
 
 from .mapproxy import QSAMapProxy
@@ -701,6 +704,19 @@ class QSAProject:
                     if key not in props:
                         return None
 
+                effect_stack = QgsEffectStack()
+                drop_shadow = QgsDropShadowEffect()
+
+                drop_shadow.setColor(QColor(0, 0, 0, 127))  # Couleur noire semi-transparente
+                drop_shadow.setBlurLevel(3)
+                drop_shadow.setOffsetAngle(135)
+                drop_shadow.setOffsetDistance(2)
+
+                effect_stack.appendEffect(drop_shadow)
+
+                for layer in symbol.symbolLayers():
+                    layer.setPaintEffect(effect_stack)
+                    
                 symbol = QgsMarkerSymbol.createSimple(properties)
                 render.setSymbol(symbol)
         return render
