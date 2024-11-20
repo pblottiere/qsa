@@ -22,6 +22,7 @@ from qgis.core import (
     QgsRasterLayer,
     QgsMarkerSymbol,
     QgsDateTimeRange,
+    QgsSourceEffect,
     QgsRendererRange,
     QgsDropShadowEffect,
     QgsRasterMinMaxOrigin,
