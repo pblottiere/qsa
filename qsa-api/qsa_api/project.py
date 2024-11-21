@@ -760,13 +760,9 @@ class QSAProject:
                 effect_stack = QgsEffectStack()
                 
                 drop_shadow = QgsDropShadowEffect()
-
-                drop_shadow.setColor(QColor(23, 23, 23, 87))  
-                drop_shadow.setOffsetUnit(QgsUnitTypes.RenderPixels)
-                drop_shadow.setBlurUnit(QgsUnitTypes.RenderPixels)
-                drop_shadow.setBlurLevel(2)
-                drop_shadow.setOffsetAngle(155)
-                drop_shadow.setOffsetDistance(1)
+                drop_shadow.setColor(QColor(23, 23, 23, 0))  # Plus transparent
+                drop_shadow.setBlurLevel(1.0)              # Réduire le flou
+                drop_shadow.setOffsetDistance(0.5)         # Distance plus courte
 
                 effect_stack.appendEffect(drop_shadow)
 
@@ -776,19 +772,8 @@ class QSAProject:
 
                 for layer in symbol.symbolLayers():
                     layer.setPaintEffect(effect_stack)
-                # Crée un fond transparent autour du cercle
-                background_symbol = QgsMarkerSymbol.createSimple({
-                    'name': 'circle',
-                    'size': '10',
-                    'color': 'transparent',  # Pas de couleur pour le cercle
-                    'outline_color': 'black',  # Bordure noire semi-transparente
-                    'outline_width': '1'
-                })
-                combined_symbol = QgsMarkerSymbol()
-                combined_symbol.appendSymbolLayer(background_symbol.symbolLayer(0))  # Ajouter le symbole de fond
-                combined_symbol.appendSymbolLayer(symbol.symbolLayer(0))  # Ajouter le symbole principal
-
-                render.setSymbol(combined_symbol)
+               
+                render.setSymbol(symbol)
         return render
 
 
