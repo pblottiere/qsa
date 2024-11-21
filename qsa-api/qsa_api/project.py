@@ -759,16 +759,16 @@ class QSAProject:
                 
                 effect_stack = QgsEffectStack()
                 
-                drop_shadow = QgsDropShadowEffect()
+                # drop_shadow = QgsDropShadowEffect()
 
-                drop_shadow.setColor(QColor(23, 23, 23, 87))  
-                drop_shadow.setOffsetUnit(QgsUnitTypes.RenderPixels)
-                drop_shadow.setBlurUnit(QgsUnitTypes.RenderPixels)
-                drop_shadow.setBlurLevel(2)
-                drop_shadow.setOffsetAngle(155)
-                drop_shadow.setOffsetDistance(1)
+                # drop_shadow.setColor(QColor(23, 23, 23, 87))  
+                # drop_shadow.setOffsetUnit(QgsUnitTypes.RenderPixels)
+                # drop_shadow.setBlurUnit(QgsUnitTypes.RenderPixels)
+                # drop_shadow.setBlurLevel(2)
+                # drop_shadow.setOffsetAngle(155)
+                # drop_shadow.setOffsetDistance(1)
 
-                effect_stack.appendEffect(drop_shadow)
+                # effect_stack.appendEffect(drop_shadow)
 
                 source_effect = QgsDrawSourceEffect()
                 source_effect.setEnabled(True)
