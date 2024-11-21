@@ -663,7 +663,7 @@ class QSAProject:
                     self.debug("min : " + str(graduated_value["min"]))
                     self.debug("max : " +str(graduated_value["max"]))
                     properties = {
-                        "outline_width" : 0.5,
+                        "outline_width" : 4,
                         "outline_style" : "solid",
                         "outline_color" : "#FFFFFF",
                     }
