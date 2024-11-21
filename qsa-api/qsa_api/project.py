@@ -765,7 +765,7 @@ class QSAProject:
                 drop_shadow.setBlurUnit(QgsUnitTypes.RenderPercentage)
                 drop_shadow.setBlurLevel(1.2)
                 drop_shadow.setOffsetAngle(155)
-                drop_shadow.setOffsetDistance(1.2)
+                drop_shadow.setOffsetDistance(2.2)
                 drop_shadow.setBlendMode(1)
                 
                 effect_stack.appendEffect(drop_shadow)
