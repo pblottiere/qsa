@@ -352,8 +352,6 @@ class QSAProject:
         m.setAuthor(author)
         project.setMetadata(m)
         
-        project.writeEntry("WMS", "/buffer", 256)
-        
         crs = project.crs()
         crs.createFromString("EPSG:3857")  # default to webmercator
         project.setCrs(crs)
@@ -763,7 +761,7 @@ class QSAProject:
                 
                 drop_shadow = QgsDropShadowEffect()
 
-                drop_shadow.setColor(QColor(23, 23, 23, 80))  
+                drop_shadow.setColor(QColor(23, 23, 23, 255))  
                 drop_shadow.setOffsetUnit(QgsUnitTypes.RenderPixels)
                 drop_shadow.setBlurUnit(QgsUnitTypes.RenderPixels)
                 drop_shadow.setBlurLevel(10)
