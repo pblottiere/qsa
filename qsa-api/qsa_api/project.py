@@ -23,6 +23,8 @@ from qgis.core import (
     QgsDateTimeRange,
     QgsRendererRange,
     QgsDropShadowEffect,
+    QgsUnitTypes,
+    QgsMapUnitScale,
     QgsDrawSourceEffect,
     QgsRendererCategory,
     QgsRasterMinMaxOrigin,
@@ -763,6 +765,8 @@ class QSAProject:
                 drop_shadow.setBlurLevel(2.5)
                 drop_shadow.setOffsetAngle(155)
                 drop_shadow.setOffsetDistance(1.2)
+                drop_shadow.setOffsetUnit(QgsUnitTypes.RenderMillimeters)
+                drop_shadow.setOffsetMapUnitScale(QgsMapUnitScale(0, 100000))
 
                 effect_stack.appendEffect(drop_shadow)
 
