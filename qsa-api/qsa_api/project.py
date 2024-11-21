@@ -351,7 +351,9 @@ class QSAProject:
         m = project.metadata()
         m.setAuthor(author)
         project.setMetadata(m)
-
+        
+        project.writeEntry("WMS", "/buffer", 256)
+        
         crs = project.crs()
         crs.createFromString("EPSG:3857")  # default to webmercator
         project.setCrs(crs)
