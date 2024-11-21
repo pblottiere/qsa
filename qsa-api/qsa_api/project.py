@@ -776,17 +776,21 @@ class QSAProject:
 
                 for layer in symbol.symbolLayers():
                     layer.setPaintEffect(effect_stack)
-                
-                # Augmenter la taille totale du symbole
-                buffer_layer = QgsSimpleFillSymbolLayer.create({
-                    'color': 'transparent',  # Couleur de fond
-                    'outline_color': 'transparent',  # Contour transparent
-                    'outline_width': '10'  # Largeur pour couvrir l'ombre portée
+                # Crée un fond transparent autour du cercle
+                background_symbol = QgsMarkerSymbol.createSimple({
+                    'name': 'circle',
+                    'size': '10',
+                    'color': 'transparent',  # Pas de couleur pour le cercle
+                    'outline_color': 'black',  # Bordure noire semi-transparente
+                    'outline_width': '1'
                 })
-                symbol.appendSymbolLayer(buffer_layer)    
+                compound_symbol = QgsSymbol()
+                compound_symbol.appendSymbolLayer(background_symbol)
+                compound_symbol.appendSymbolLayer(symbol)
+
+                        
                     
-                    
-                render.setSymbol(symbol)
+                render.setSymbol(compound_symbol)
         return render
 
 
