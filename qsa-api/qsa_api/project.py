@@ -673,6 +673,17 @@ class QSAProject:
 
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
+               
+                properties = {
+                    "outline_width" : properties["outline_width"],
+                    "outline_style" : properties["outline_style"],
+                    "outline_color" : properties["outline_color"],
+                }
+                symbol = QgsFillSymbol.createSimple(properties)
+                symbol.setColor(QColor("#808080"))
+
+                range = QgsRendererCategory('', symbol, "default")
+                ranges.append(range)
                 
             case "line":
                 return None #Not implement
