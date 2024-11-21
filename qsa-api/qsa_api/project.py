@@ -761,7 +761,7 @@ class QSAProject:
                 
                 drop_shadow = QgsDropShadowEffect()
 
-                drop_shadow.setColor(QColor(23, 23, 23, 255))  
+                drop_shadow.setColor(QColor(23, 23, 23, 0))  
                 drop_shadow.setOffsetUnit(QgsUnitTypes.RenderPixels)
                 drop_shadow.setBlurUnit(QgsUnitTypes.RenderPixels)
                 drop_shadow.setBlurLevel(10)
