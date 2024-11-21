@@ -682,7 +682,6 @@ class QSAProject:
                     return None #Not implement
                 
         render = QgsCategorizedSymbolRenderer(attribut, ranges)
-        render.setMode(QgsCategorizedSymbolRenderer.Custom) 
         return render
     
     def _create_graduated_style(self,symbology: dict) -> QgsGraduatedSymbolRenderer:
