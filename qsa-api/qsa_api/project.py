@@ -23,8 +23,6 @@ from qgis.core import (
     QgsDateTimeRange,
     QgsRendererRange,
     QgsDropShadowEffect,
-    QgsUnitTypes,
-    QgsMapUnitScale,
     QgsDrawSourceEffect,
     QgsRendererCategory,
     QgsRasterMinMaxOrigin,
@@ -351,7 +349,7 @@ class QSAProject:
         m = project.metadata()
         m.setAuthor(author)
         project.setMetadata(m)
-        
+
         crs = project.crs()
         crs.createFromString("EPSG:3857")  # default to webmercator
         project.setCrs(crs)
@@ -760,10 +758,11 @@ class QSAProject:
                 effect_stack = QgsEffectStack()
                 
                 drop_shadow = QgsDropShadowEffect()
-                drop_shadow.setColor(QColor(255, 255, 255, 0))  # Plus transparent
-                drop_shadow.setBlurLevel(1.0)              # Réduire le flou
-                drop_shadow.setOffsetDistance(0.5)         # Distance plus courte
-                drop_shadow.setOpacity(50)
+
+                drop_shadow.setColor(QColor(23, 23, 23, 127))  
+                drop_shadow.setBlurLevel(2.5)
+                drop_shadow.setOffsetAngle(155)
+                drop_shadow.setOffsetDistance(1.2)
                 drop_shadow.setBlendMode(1)
                 
                 effect_stack.appendEffect(drop_shadow)
@@ -774,7 +773,9 @@ class QSAProject:
 
                 for layer in symbol.symbolLayers():
                     layer.setPaintEffect(effect_stack)
-               
+                    
+                    
+                    
                 render.setSymbol(symbol)
         return render
 
