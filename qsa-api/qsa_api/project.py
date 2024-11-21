@@ -649,39 +649,44 @@ class QSAProject:
 
         return False, "Error"
     def _create_graduated_style(self,symbology: dict) -> QgsGraduatedSymbolRenderer:
-            symbol = symbology["symbol"] 
-            properties = symbology["properties"]
-            attribut = properties["attributs"]
-            ranges = []
-            
-            match symbol:
-                case "fill":
-                    for graduated_value in properties["list_graduated"]:
-                        symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
-                        symbol.setColor(QColor(graduated_value["color"]))
-                        range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "")
-                        ranges.append(range)
-                    
-                case "line":
+        
+        symbol = symbology["symbol"] 
+        properties = symbology["properties"]
+        attribut = properties["attributs"]
+        ranges = []
+        
+        match symbol:
+            case "fill":
+                self.debug("graduated + fill")
+                for graduated_value in properties["list_graduated"]:
+                    self.debug("color : " + graduated_value["color"])
+                    self.debug("min : " + graduated_value["min"])
+                    self.debug("max : " + graduated_value["max"])
+                    symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
+                    symbol.setColor(QColor(graduated_value["color"]))
+                    range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
+                    ranges.append(range)
+                
+            case "line":
+                return None #Not implement
+            case "marker":
                     return None #Not implement
-                case "marker":
-                        return None #Not implement
-                case other:  
-                        return None #Not implement
-                    
-            # symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            # symbol1.setColor(QColor("#fecc5c"))
-            # range1 = QgsRendererRange(0, 4, symbol1, "65-357")
-            # ranges.append(range1)
+            case other:  
+                    return None #Not implement
+                
+        # symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+        # symbol1.setColor(QColor("#fecc5c"))
+        # range1 = QgsRendererRange(0, 4, symbol1, "65-357")
+        # ranges.append(range1)
 
-            # symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            # symbol2.setColor(QColor("#28bceb"))
-            # range2 = QgsRendererRange(4, 8, symbol2, "357-630")
-            # ranges.append(range2)
+        # symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+        # symbol2.setColor(QColor("#28bceb"))
+        # range2 = QgsRendererRange(4, 8, symbol2, "357-630")
+        # ranges.append(range2)
 
-            render = QgsGraduatedSymbolRenderer(attribut, ranges)
-            render.setMode(QgsGraduatedSymbolRenderer.Custom) 
-            return render
+        render = QgsGraduatedSymbolRenderer(attribut, ranges)
+        render.setMode(QgsGraduatedSymbolRenderer.Custom) 
+        return render
 
     def _create_single_symbol_style(self,symbology: dict) -> QgsSingleSymbolRenderer:
           
