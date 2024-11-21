@@ -784,13 +784,11 @@ class QSAProject:
                     'outline_color': 'black',  # Bordure noire semi-transparente
                     'outline_width': '1'
                 })
-                compound_symbol = QgsSymbol()
-                compound_symbol.appendSymbolLayer(background_symbol)
-                compound_symbol.appendSymbolLayer(symbol)
+                combined_symbol = QgsMarkerSymbol()
+                combined_symbol.appendSymbolLayer(background_symbol.symbolLayer(0))  # Ajouter le symbole de fond
+                combined_symbol.appendSymbolLayer(symbol.symbolLayer(0))  # Ajouter le symbole principal
 
-                        
-                    
-                render.setSymbol(compound_symbol)
+                render.setSymbol(combined_symbol)
         return render
 
 
