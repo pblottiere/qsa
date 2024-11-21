@@ -662,8 +662,14 @@ class QSAProject:
                     self.debug("color : " + graduated_value["color"])
                     self.debug("min : " + str(graduated_value["min"]))
                     self.debug("max : " +str(graduated_value["max"]))
-                    symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
+                    properties = {
+                        "outline_width" : 0.5,
+                        "outline_style" : "solid",
+                        "outline_color" : "#FFFFFF",
+                    }
+                    symbol = QgsMarkerSymbol.createSimple(properties)
                     symbol.setColor(QColor(graduated_value["color"]))
+                    symbol.set
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
                     ranges.append(range)
                 
