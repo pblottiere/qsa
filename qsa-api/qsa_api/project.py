@@ -760,7 +760,7 @@ class QSAProject:
                 effect_stack = QgsEffectStack()
                 
                 drop_shadow = QgsDropShadowEffect()
-                drop_shadow.setColor(QColor(23, 23, 23, 0))  # Plus transparent
+                drop_shadow.setColor(QColor(23, 23, 23, 255))  # Plus transparent
                 drop_shadow.setBlurLevel(1.0)              # Réduire le flou
                 drop_shadow.setOffsetDistance(0.5)         # Distance plus courte
 
