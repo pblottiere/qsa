@@ -649,20 +649,39 @@ class QSAProject:
 
         return False, "Error"
     def _create_graduated_style(self,symbology: dict) -> QgsGraduatedSymbolRenderer:
-            attribut = "test"
+            symbol = symbology["symbol"] 
+            properties = symbology["properties"]
+            attribut = properties["attributs"]
             ranges = []
-            symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol1.setColor(QColor("#fecc5c"))
-            range1 = QgsRendererRange(0, 4, symbol1, "65-357")
-            ranges.append(range1)
+            
+            match symbol:
+                case "fill":
+                    for graduated_value in properties["list_graduated"]:
+                        symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
+                        symbol.setColor(QColor(graduated_value["color"]))
+                        range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "")
+                        ranges.append(range)
+                    
+                case "line":
+                    return None #Not implement
+                case "marker":
+                        return None #Not implement
+                case other:  
+                        return None #Not implement
+                    
+            # symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            # symbol1.setColor(QColor("#fecc5c"))
+            # range1 = QgsRendererRange(0, 4, symbol1, "65-357")
+            # ranges.append(range1)
 
-            symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-            symbol2.setColor(QColor("#28bceb"))
-            range2 = QgsRendererRange(4, 8, symbol2, "357-630")
-            ranges.append(range2)
+            # symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+            # symbol2.setColor(QColor("#28bceb"))
+            # range2 = QgsRendererRange(4, 8, symbol2, "357-630")
+            # ranges.append(range2)
 
             render = QgsGraduatedSymbolRenderer(attribut, ranges)
             render.setMode(QgsGraduatedSymbolRenderer.Custom) 
+            return render
 
     def _create_single_symbol_style(self,symbology: dict) -> QgsSingleSymbolRenderer:
           
@@ -706,25 +725,21 @@ class QSAProject:
 
                 symbol = QgsMarkerSymbol.createSimple(properties)
                 
-                # Ajout de l'effet drop shadow
                 effect_stack = QgsEffectStack()
                 
                 drop_shadow = QgsDropShadowEffect()
 
-                # Configuration de l'effet drop shadow
-                drop_shadow.setColor(QColor(23, 23, 23, 127))  # Couleur noire semi-transparente
+                drop_shadow.setColor(QColor(23, 23, 23, 127))  
                 drop_shadow.setBlurLevel(2.5)
                 drop_shadow.setOffsetAngle(155)
                 drop_shadow.setOffsetDistance(1.2)
 
-                # Ajout de l'effet au stack
                 effect_stack.appendEffect(drop_shadow)
 
-                # Ajout de l'effet source
                 source_effect = QgsDrawSourceEffect()
                 source_effect.setEnabled(True)
                 effect_stack.appendEffect(source_effect)
-                # Application de l'effet au symbole
+
                 for layer in symbol.symbolLayers():
                     layer.setPaintEffect(effect_stack)
                     
