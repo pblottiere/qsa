@@ -18,12 +18,13 @@ from qgis.core import (
     QgsApplication,
     QgsVectorLayer,
     QgsRasterLayer,
-    QgsDrawSourceEffect,
     QgsEffectStack,
-    QgsDropShadowEffect,
     QgsMarkerSymbol,
     QgsDateTimeRange,
     QgsRendererRange,
+    QgsDropShadowEffect,
+    QgsDrawSourceEffect,
+    QgsRendererCategory,
     QgsRasterMinMaxOrigin,
     QgsContrastEnhancement,
     QgsSingleSymbolRenderer,
@@ -31,6 +32,7 @@ from qgis.core import (
     QgsSimpleLineSymbolLayer,
     QgsSimpleMarkerSymbolLayer,
     QgsGraduatedSymbolRenderer,
+    QgsCategorizedSymbolRenderer,
     QgsRasterLayerTemporalProperties,
 )
 
@@ -631,8 +633,8 @@ class QSAProject:
                 render = self._create_single_symbol_style(symbology)
             case "graduated": 
                 render = self._create_graduated_style(symbology)
-            # case "categorized": 
-            #     create_categorized_style(symbology)
+            case "categorized": 
+                render = self._create_categorized_style(symbology)
 
         
         if "opacity" in rendering:
@@ -648,6 +650,41 @@ class QSAProject:
             return True, ""
 
         return False, "Error"
+    
+    def _create_categorized_style(self,symbology: dict) -> QgsCategorizedSymbolRenderer:
+        symbol = symbology["symbol"] 
+        properties = symbology["properties"]
+        attribut = properties["attributs"]
+        ranges = []
+        
+        match symbol:
+            case "fill":
+                self.debug("graduated + fill")
+                for graduated_value in properties["list_graduated"]:
+                    self.debug("color : " + graduated_value["color"])
+                    self.debug("min : " + str(graduated_value["value"]))
+                    properties = {
+                        "outline_width" : properties["outline_width"],
+                        "outline_style" : properties["outline_style"],
+                        "outline_color" : properties["outline_color"],
+                    }
+                    symbol = QgsFillSymbol.createSimple(properties)
+                    symbol.setColor(QColor(graduated_value["color"]))
+
+                    range = QgsRendererCategory(graduated_value["value"], symbol, "test")
+                    ranges.append(range)
+                
+            case "line":
+                return None #Not implement
+            case "marker":
+                    return None #Not implement
+            case other:  
+                    return None #Not implement
+                
+        render = QgsCategorizedSymbolRenderer(attribut, ranges)
+        render.setMode(QgsCategorizedSymbolRenderer.Custom) 
+        return render
+    
     def _create_graduated_style(self,symbology: dict) -> QgsGraduatedSymbolRenderer:
         
         symbol = symbology["symbol"] 
@@ -680,16 +717,6 @@ class QSAProject:
             case other:  
                     return None #Not implement
                 
-        # symbol1 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-        # symbol1.setColor(QColor("#fecc5c"))
-        # range1 = QgsRendererRange(0, 4, symbol1, "65-357")
-        # ranges.append(range1)
-
-        # symbol2 = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-        # symbol2.setColor(QColor("#28bceb"))
-        # range2 = QgsRendererRange(4, 8, symbol2, "357-630")
-        # ranges.append(range2)
-
         render = QgsGraduatedSymbolRenderer(attribut, ranges)
         render.setMode(QgsGraduatedSymbolRenderer.Custom) 
         return render
