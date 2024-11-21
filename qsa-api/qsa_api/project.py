@@ -764,6 +764,8 @@ class QSAProject:
                 drop_shadow.setBlurLevel(1.0)              # Réduire le flou
                 drop_shadow.setOffsetDistance(0.5)         # Distance plus courte
                 drop_shadow.setOpacity(50)
+                drop_shadow.blendMode(1)
+                
                 effect_stack.appendEffect(drop_shadow)
 
                 source_effect = QgsDrawSourceEffect()
