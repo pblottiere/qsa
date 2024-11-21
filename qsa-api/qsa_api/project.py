@@ -667,7 +667,7 @@ class QSAProject:
                         "outline_style" : "solid",
                         "outline_color" : "#FFFFFF",
                     }
-                    symbol = QgsMarkerSymbol.createSimple(properties)
+                    symbol = QgsFillSymbol.createSimple(properties)
                     symbol.setColor(QColor(graduated_value["color"]))
                     symbol.set
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
