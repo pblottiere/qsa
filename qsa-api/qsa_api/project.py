@@ -659,10 +659,7 @@ class QSAProject:
         
         match symbol:
             case "fill":
-                self.debug("categorized + fill")
                 for categorized_value in properties["list_categorized"]:
-                    self.debug("color : " + categorized_value["color"])
-                    self.debug("min : " + str(categorized_value["value"]))
                     properties = {
                         "outline_width" : properties["outline_width"],
                         "outline_style" : properties["outline_style"],
@@ -673,17 +670,6 @@ class QSAProject:
 
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
-               
-                properties = {
-                    "outline_width" : properties["outline_width"],
-                    "outline_style" : properties["outline_style"],
-                    "outline_color" : properties["outline_color"],
-                }
-                symbol = QgsFillSymbol.createSimple(properties)
-                symbol.setColor(QColor("#808080"))
-
-                range = QgsRendererCategory('', symbol, "default")
-                ranges.append(range)
                 
             case "line":
                 return None #Not implement
@@ -704,11 +690,7 @@ class QSAProject:
         
         match symbol:
             case "fill":
-                self.debug("graduated + fill")
                 for graduated_value in properties["list_graduated"]:
-                    self.debug("color : " + graduated_value["color"])
-                    self.debug("min : " + str(graduated_value["min"]))
-                    self.debug("max : " +str(graduated_value["max"]))
                     properties = {
                         "outline_width" : properties["outline_width"],
                         "outline_style" : properties["outline_style"],
