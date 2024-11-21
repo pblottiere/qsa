@@ -659,19 +659,19 @@ class QSAProject:
         
         match symbol:
             case "fill":
-                self.debug("graduated + fill")
-                for graduated_value in properties["list_graduated"]:
-                    self.debug("color : " + graduated_value["color"])
-                    self.debug("min : " + str(graduated_value["value"]))
+                self.debug("categorized + fill")
+                for categorized_value in properties["list_categorized"]:
+                    self.debug("color : " + categorized_value["color"])
+                    self.debug("min : " + str(categorized_value["value"]))
                     properties = {
                         "outline_width" : properties["outline_width"],
                         "outline_style" : properties["outline_style"],
                         "outline_color" : properties["outline_color"],
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
-                    symbol.setColor(QColor(graduated_value["color"]))
+                    symbol.setColor(QColor(categorized_value["color"]))
 
-                    range = QgsRendererCategory(graduated_value["value"], symbol, "test")
+                    range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
                 
             case "line":
