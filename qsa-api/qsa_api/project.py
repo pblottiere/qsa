@@ -660,8 +660,8 @@ class QSAProject:
                 self.debug("graduated + fill")
                 for graduated_value in properties["list_graduated"]:
                     self.debug("color : " + graduated_value["color"])
-                    self.debug("min : " + graduated_value["min"])
-                    self.debug("max : " + graduated_value["max"])
+                    self.debug("min : " + str(graduated_value["min"]))
+                    self.debug("max : " +str(graduated_value["max"]))
                     symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
                     symbol.setColor(QColor(graduated_value["color"]))
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
