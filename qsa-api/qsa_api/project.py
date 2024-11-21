@@ -766,7 +766,7 @@ class QSAProject:
                 drop_shadow.setOffsetAngle(155)
                 drop_shadow.setOffsetDistance(1.2)
                 drop_shadow.setOffsetUnit(QgsUnitTypes.RenderPixels)
-                drop_shadow.setOffsetMapUnitScale(QgsMapUnitScale(0, 100000))
+                drop_shadow.setOffsetMapUnitScale(QgsMapUnitScale(0, 2.5))
 
                 effect_stack.appendEffect(drop_shadow)
 
