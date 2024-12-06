@@ -662,9 +662,9 @@ class QSAProject:
             case "fill":
                 for categorized_value in properties["list_categorized"]:
                     properties = {
-                        "outline_width" : properties["outline_width"],
-                        "outline_style" : properties["outline_style"],
-                        "outline_color" : properties["outline_color"],
+                        "outline_width" : categorized_value["outline_width"],
+                        "outline_style" : categorized_value["outline_style"],
+                        "outline_color" : categorized_value["outline_color"],
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
                     symbol.setColor(QColor(categorized_value["color"]))
@@ -693,9 +693,9 @@ class QSAProject:
             case "fill":
                 for graduated_value in properties["list_graduated"]:
                     properties = {
-                        "outline_width" : properties["outline_width"],
-                        "outline_style" : properties["outline_style"],
-                        "outline_color" : properties["outline_color"],
+                        "outline_width" : graduated_value["outline_width"],
+                        "outline_style" : graduated_value["outline_style"],
+                        "outline_color" : graduated_value["outline_color"],
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
                     symbol.setColor(QColor(graduated_value["color"]))
