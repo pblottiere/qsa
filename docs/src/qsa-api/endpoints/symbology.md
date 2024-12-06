@@ -23,7 +23,7 @@ version.
 
 Examples:
 
-```` shell
+```` console
 # Return single symbol properties for polygon layers
 $ curl "http://localhost:5000/api/symbology/vector/polygon/single_symbol/fill/properties" | jq
 {

@@ -12,7 +12,7 @@ jobs:
       image: qgis/qgis:3.34
     steps:
       - uses: actions/checkout@v4
-      - name: install system dependencies 
+      - name: install system dependencies
         run: apt update && apt install -y python3-poetry python3-flask python3-boto3
       - name: Install Python dependencies
         working-directory: qsa-api

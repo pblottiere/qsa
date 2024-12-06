@@ -2,7 +2,7 @@
 
 ## From sources
 
-```` shell
+```` console
 $ cd qsa-api
 $ virtualenv --system-site-packages venv  # system aware for pyqgis
 $ . venv/bin/activate
@@ -14,7 +14,7 @@ $ . venv/bin/activate
 
 A prebuilt image can be found on `ghcr.io/pblottiere/qsa`:
 
-```` shell
+```` console
 $ docker pull ghcr.io/pblottiere/qsa:1.1.0
 ````
 

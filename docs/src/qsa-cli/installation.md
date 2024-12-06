@@ -4,7 +4,7 @@ From sources:
 
 ```` console
 $ cd qsa-cli
-$ virtualenv venv  
+$ virtualenv venv
 $ . venv/bin/activate
 (venv)$ pip install poetry
 (venv)$ poetry install

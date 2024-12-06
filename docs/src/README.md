@@ -1,6 +1,5 @@
 Welcome to QGIS Server Administration tool's documentation.
 
-
 [QGIS Server](https://docs.qgis.org/3.34/en/docs/server_manual/introduction.html) is
 a map-server based on the QGIS core library and rendering engine which provides
 numerous classical services like WMS, WFS, WCS, WMTS and OGC API Features.
@@ -15,6 +14,7 @@ Components:
 * [QSA cli](qsa-cli/): Command line tool
 
 Features:
+
 * Create and manage QGIS projects stored on the filesystem or in PostgreSQL
 * Create and update vector and raster layers : symbology, theme, ...
 * Inspect online QGIS Server instances
@@ -23,6 +23,7 @@ Features:
 ![QSA](images/qsa_archi.png)
 
 Roadmap:
+
 * Add more documentation
 * Add PostgreSQL support to store QGIS styles and QSA internals data
 * Publish `qsa-cli` on PyPI
