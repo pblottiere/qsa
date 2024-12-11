@@ -719,7 +719,7 @@ class QSAProject:
                         "line_style" : graduated_value["outline_style"],
                     }
                     symbol = QgsLineSymbol.createSimple(properties)
-                    symbol.setColor(QColor(graduated_value["color"]))
+                    symbol.setColor(QColor(graduated_value["outline_color"]))
 
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
                     ranges.append(range)
