@@ -1,11 +1,10 @@
 # Sandbox : raster processing
 
-
-### Histogram
+## Histogram
 
 To get an histogram for a specific raster layer:
 
-```` shell
+```` console
 $ curl "http://localhost:5000/api/processing/raster/histogram/my_project/dem?schema=my_schema" \
   -X POST \
   -H 'Content-Type: application/json' \
@@ -13,5 +12,4 @@ $ curl "http://localhost:5000/api/processing/raster/histogram/my_project/dem?sch
     "min": 0,
     "count": 100
   }'
-true
 ````

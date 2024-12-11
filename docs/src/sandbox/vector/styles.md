@@ -1,11 +1,10 @@
 # Sandbox : vector styles
 
-
-### Add style to project
+## Add style to project
 
 To list available properties for the polygon single symbol renderer:
 
-```` shell
+```` console
 $ curl "http://localhost:5000/api/symbology/vector/polygon/single_symbol/fill/properties" | jq
 {
   "border_width_map_unit_scale": "3x:0,0,0,0,0,0",
@@ -24,7 +23,7 @@ $ curl "http://localhost:5000/api/symbology/vector/polygon/single_symbol/fill/pr
 
 To add a style for a polygon layer:
 
-```` shell
+```` console
 $ curl "http://localhost:5000/api/projects/my_project/styles?schema=my_schema" \
   -X POST \
   -H 'Content-Type: application/json' \
@@ -43,22 +42,20 @@ $ curl "http://localhost:5000/api/projects/my_project/styles?schema=my_schema" \
     },
     "rendering": {}
   }'
-true
 ````
 
 To list styles for a specific project:
 
-```` shell
+```` console
 $ curl "http://localhost:5000/api/projects/my_project/styles?schema=my_schema"
 ["my_fill_style"]
 ````
 
-
-### Apply style to layer
+## Apply style to layer
 
 To apply a specific style to a layer:
 
-```` shell
+```` console
 $ curl "http://localhost:5000/api/projects/my_project/layers/polygons/style?schema=my_schema" \
   -X POST \
   -H 'Content-Type: application/json' \
@@ -66,12 +63,11 @@ $ curl "http://localhost:5000/api/projects/my_project/layers/polygons/style?sche
     "name":"my_fill_style",
     "current":true
   }'
-true
 ````
 
 The layer rendering has changed now:
 
-```` shell
+```` console
 $ curl "http://localhost:5000/api/projects/my_project/layers/polygons/map?schema=my_schema" --output map.png
 ````
 

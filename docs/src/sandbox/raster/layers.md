@@ -2,12 +2,11 @@
 
 Layer is based on the `landsat_4326.tif` file mounted in the Docker containers.
 
-
-### Add layers
+## Add layers
 
 To add a raster layer to a project:
 
-```` shell
+```` console
 $ curl "http://localhost:5000/api/projects/my_project/layers?schema=my_schema" \
   -X POST \
   -H 'Content-Type: application/json' \
@@ -16,13 +15,11 @@ $ curl "http://localhost:5000/api/projects/my_project/layers?schema=my_schema" \
     "name":"dem",
     "type":"raster"
   }'
-true
 ````
 
+## List layers and get metadata
 
-### List layers and get metadata
-
-```` shell
+```` console
 # list layers
 $ curl "http://localhost:5000/api/projects/my_project/layers?schema=my_schema"
 ["polygons","dem"]
@@ -45,12 +42,11 @@ $ curl "http://localhost:5000/api/projects/my_project/layers/dem?schema=my_schem
 }
 ````
 
-
-### Map sample
+## Map sample
 
 To execute a WMS `GetMap` request with basic parameters:
 
-```` shell
+```` console
 $ curl "http://localhost:5000/api/projects/my_project/layers/dem/map?schema=my_schema" --output map.png
 ````
 

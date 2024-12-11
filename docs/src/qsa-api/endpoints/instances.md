@@ -1,6 +1,5 @@
 # QSA REST API : /api/instances
 
-
 When `qsa-plugin` is installed, an `/api/instances` endpoint is available to
 retrieve information about QGIS Server underlying instances.
 
