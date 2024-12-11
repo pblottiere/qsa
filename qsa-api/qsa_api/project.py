@@ -668,21 +668,22 @@ class QSAProject:
                         "outline_color" : categorized_value["outline_color"],
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
-                    symbol.setColor(QColor(categorized_value["outline_color"]))
+                    symbol.setColor(QColor(categorized_value["color"]))
 
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
                 
             case "line":  
-                properties = {
-                    "outline_width" : categorized_value["outline_width"],
-                    "outline_style" : categorized_value["outline_style"],
-                }
-                symbol = QgsLineSymbol.createSimple(properties)
-                symbol.setColor(QColor(categorized_value["color"]))
+                for categorized_value in properties["list_categorized"]:
+                    properties = {
+                        "outline_width" : categorized_value["outline_width"],
+                        "outline_style" : categorized_value["outline_style"],
+                    }
+                    symbol = QgsLineSymbol.createSimple(properties)
+                    symbol.setColor(QColor(categorized_value["outline_color"]))
 
-                range = QgsRendererCategory(categorized_value["value"], symbol, "test")
-                ranges.append(range)
+                    range = QgsRendererCategory(categorized_value["value"], symbol, "test")
+                    ranges.append(range)
             case "marker":
                     return None #Not implement
             case other:  
