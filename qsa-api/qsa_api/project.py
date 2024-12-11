@@ -727,15 +727,15 @@ class QSAProject:
             case "marker": 
                 for graduated_value in properties["list_graduated"]:
                     properties = {
-                        "outline_width" : graduated_value["outline_width"],
-                        "outline_style" : graduated_value["outline_style"],
+                        # "outline_width" : graduated_value["outline_width"],
+                        # "outline_style" : graduated_value["outline_style"],
                     }
                     symbol = QgsMarkerSymbol.createSimple(properties)
                     svg_layer = QgsSvgMarkerSymbolLayer("https://eop-storage-dev.s3.eu-west-3.amazonaws.com/asset/svg/apartment.svg")
                     svg_layer.setSize(10)
-                    svg_layer.setFillColor(QColor(graduated_value["fill_color"]))
-                    svg_layer.setStrokeColor(QColor(graduated_value["outline_color"]))
-                    svg_layer.setStrokeWidth(graduated_value["outline_width"])
+                    # svg_layer.setFillColor(QColor(graduated_value["fill_color"]))
+                    # svg_layer.setStrokeColor(QColor(graduated_value["outline_color"]))
+                    # svg_layer.setStrokeWidth(graduated_value["outline_width"])
                     symbol.changeSymbolLayer(0, svg_layer)
                     
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
