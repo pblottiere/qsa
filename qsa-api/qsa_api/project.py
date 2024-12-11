@@ -668,7 +668,7 @@ class QSAProject:
                         "outline_color" : categorized_value["outline_color"],
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
-                    symbol.setColor(QColor(categorized_value["color"]))
+                    symbol.setColor(QColor(categorized_value["outline_color"]))
 
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
