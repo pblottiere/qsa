@@ -28,6 +28,7 @@ from qgis.core import (
     QgsRendererCategory,
     QgsRasterMinMaxOrigin,
     QgsContrastEnhancement,
+    QgsSvgMarkerSymbolLayer,
     QgsSingleSymbolRenderer,
     QgsSimpleFillSymbolLayer,
     QgsSimpleLineSymbolLayer,
@@ -672,8 +673,16 @@ class QSAProject:
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
                 
-            case "line":
-                return None #Not implement
+            case "line":  
+                properties = {
+                    "outline_width" : categorized_value["outline_width"],
+                    "outline_style" : categorized_value["outline_style"],
+                }
+                symbol = QgsLineSymbol.createSimple(properties)
+                symbol.setColor(QColor(categorized_value["color"]))
+
+                range = QgsRendererCategory(categorized_value["value"], symbol, "test")
+                ranges.append(range)
             case "marker":
                     return None #Not implement
             case other:  
@@ -704,9 +713,32 @@ class QSAProject:
                     ranges.append(range)
                 
             case "line":
-                return None #Not implement
-            case "marker":
-                    return None #Not implement
+                for graduated_value in properties["list_graduated"]:
+                    properties = {
+                        "outline_width" : graduated_value["outline_width"],
+                        "outline_style" : graduated_value["outline_style"],
+                    }
+                    symbol = QgsLineSymbol.createSimple(properties)
+                    symbol.setColor(QColor(graduated_value["color"]))
+
+                    range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
+                    ranges.append(range)
+            case "marker": 
+                for graduated_value in properties["list_graduated"]:
+                    properties = {
+                        "outline_width" : graduated_value["outline_width"],
+                        "outline_style" : graduated_value["outline_style"],
+                    }
+                    symbol = QgsMarkerSymbol.createSimple(properties)
+                    svg_layer = QgsSvgMarkerSymbolLayer(graduated_value["svg_path"])
+                    svg_layer.setSize(graduated_value["size"])
+                    svg_layer.setFillColor(QColor(graduated_value["fill_color"]))
+                    svg_layer.setStrokeColor(QColor(graduated_value["outline_color"]))
+                    svg_layer.setStrokeWidth(graduated_value["outline_width"])
+                    symbol.changeSymbolLayer(0, svg_layer)
+                    
+                    range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
+                    ranges.append(range)
             case other:  
                     return None #Not implement
                 
