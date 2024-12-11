@@ -731,7 +731,7 @@ class QSAProject:
                         "outline_style" : graduated_value["outline_style"],
                     }
                     symbol = QgsMarkerSymbol.createSimple(properties)
-                    svg_layer = QgsSvgMarkerSymbolLayer(graduated_value["svg_path"])
+                    svg_layer = QgsSvgMarkerSymbolLayer("https://eop-storage-dev.s3.eu-west-3.amazonaws.com/asset/svg/apartment.svg")
                     svg_layer.setSize(graduated_value["size"])
                     svg_layer.setFillColor(QColor(graduated_value["fill_color"]))
                     svg_layer.setStrokeColor(QColor(graduated_value["outline_color"]))
