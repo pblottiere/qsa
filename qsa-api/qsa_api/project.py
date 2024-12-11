@@ -715,8 +715,8 @@ class QSAProject:
             case "line":
                 for graduated_value in properties["list_graduated"]:
                     properties = {
-                        "outline_width" : graduated_value["outline_width"],
-                        "outline_style" : graduated_value["outline_style"],
+                        "line_width" : graduated_value["outline_width"],
+                        "line_style" : graduated_value["outline_style"],
                     }
                     symbol = QgsLineSymbol.createSimple(properties)
                     symbol.setColor(QColor(graduated_value["color"]))
@@ -763,6 +763,7 @@ class QSAProject:
                         return None
 
                 symbol = QgsLineSymbol.createSimple(properties)
+                symbol.layer
                 render.setSymbol(symbol)
             case "fill":
                 render = QgsSingleSymbolRenderer(
