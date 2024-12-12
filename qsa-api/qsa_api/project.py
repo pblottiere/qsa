@@ -256,7 +256,7 @@ class QSAProject:
         if style_name != "default" and style_name not in self.styles:
             return False, f"Style '{style_name}' does not exist"
         
-        thread = threading.Thread(target=self.threaded_clear_cache, args=(self.name, layer_name))
+        thread = threading.Thread(target=self.threaded_clear_cache, args=(layer_name))
         thread.start()
 
         flags = Qgis.ProjectReadFlags()
