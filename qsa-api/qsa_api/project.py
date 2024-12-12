@@ -242,8 +242,8 @@ class QSAProject:
 
             return infos
         return {}
-    
-    def threaded_clear_cache(self,name,layer_name):
+    @staticmethod
+    def threaded_clear_cache(name,layer_name):
         mp = QSAMapProxy(name)
         mp.clear_cache(layer_name)
         
