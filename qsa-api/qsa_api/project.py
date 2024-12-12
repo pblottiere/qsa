@@ -1,8 +1,8 @@
 # coding: utf8
 
 import sys
-import threading
 import shutil
+import threading
 import sqlite3
 from pathlib import Path
 
@@ -242,11 +242,7 @@ class QSAProject:
 
             return infos
         return {}
-    
-    def threaded_clear_cache(self,layer_name):
-        mp = QSAMapProxy(self.name)
-        mp.clear_cache(layer_name)
-        
+
     def layer_update_style(
         self, layer_name: str, style_name: str, current: bool
     ) -> (bool, str):
@@ -255,10 +251,16 @@ class QSAProject:
 
         if style_name != "default" and style_name not in self.styles:
             return False, f"Style '{style_name}' does not exist"
-        
-        thread = threading.Thread(target=self.threaded_clear_cache, args=(layer_name,))
-        thread.start()
 
+        def clear_cache_task():
+            self.debug("Clear MapProxy cache")
+            mp = QSAMapProxy(self.name)
+            mp.clear_cache(layer_name)
+
+        self.debug("Start thread for clearing MapProxy cache")
+        cache_thread = threading.Thread(target=clear_cache_task)
+        cache_thread.start()
+        
         flags = Qgis.ProjectReadFlags()
         flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
 
@@ -288,9 +290,7 @@ class QSAProject:
                 renderer = RasterSymbologyRenderer(layer.renderer().type())
                 renderer.refresh_min_max(layer)
 
-            if self._mapproxy_enabled:
-                self.debug("Clear MapProxy cache")
-        thread.join()
+        cache_thread.join()  # Attendre la fin du thread
         self.debug("Write project")
         project.write()
 
