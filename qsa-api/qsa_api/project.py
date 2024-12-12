@@ -5,6 +5,7 @@ import shutil
 import threading
 import sqlite3
 from pathlib import Path
+from flask import current_app
 
 from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtCore import Qt, QDateTime
@@ -253,9 +254,10 @@ class QSAProject:
             return False, f"Style '{style_name}' does not exist"
 
         def clear_cache_task():
-            self.debug("Clear MapProxy cache")
-            mp = QSAMapProxy(self.name)
-            mp.clear_cache(layer_name)
+            with current_app.app_context():  
+                self.debug("Clear MapProxy cache")
+                mp = QSAMapProxy(self.name)
+                mp.clear_cache(layer_name)
 
         self.debug("Start thread for clearing MapProxy cache")
         cache_thread = threading.Thread(target=clear_cache_task)
