@@ -242,9 +242,11 @@ class QSAProject:
 
             return infos
         return {}
+    
     def threaded_clear_cache(self,name, layer_name):
         mp = QSAMapProxy(name)
         mp.clear_cache(layer_name)
+        
     def layer_update_style(
         self, layer_name: str, style_name: str, current: bool
     ) -> (bool, str):
@@ -253,7 +255,8 @@ class QSAProject:
 
         if style_name != "default" and style_name not in self.styles:
             return False, f"Style '{style_name}' does not exist"
-        thread = threading.Thread(target=self.threaded_clear_cache, args=(self.name, layer_name))
+        
+        thread = threading.Thread(target=self.threaded_clear_cache, args=(None,self.name, layer_name))
         thread.start()
 
         flags = Qgis.ProjectReadFlags()
