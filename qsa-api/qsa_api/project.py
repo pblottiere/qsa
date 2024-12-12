@@ -1,6 +1,7 @@
 # coding: utf8
 
 import sys
+import threading
 import shutil
 import sqlite3
 from pathlib import Path
@@ -241,7 +242,10 @@ class QSAProject:
 
             return infos
         return {}
-
+    
+    def threaded_clear_cache(mp,layer_name):
+        mp.clear_cache(layer_name)
+        
     def layer_update_style(
         self, layer_name: str, style_name: str, current: bool
     ) -> (bool, str):
@@ -250,7 +254,10 @@ class QSAProject:
 
         if style_name != "default" and style_name not in self.styles:
             return False, f"Style '{style_name}' does not exist"
-
+        mp = QSAMapProxy(self.name)
+        thread = threading.Thread(target=self.threaded_clear_cache, args=(mp,layer_name,))
+        thread.start()
+        
         flags = Qgis.ProjectReadFlags()
         flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
 
@@ -282,9 +289,8 @@ class QSAProject:
 
             if self._mapproxy_enabled:
                 self.debug("Clear MapProxy cache")
-                mp = QSAMapProxy(self.name)
-                mp.clear_cache(layer_name)
-
+                
+        thread.join()
         self.debug("Write project")
         project.write()
 
