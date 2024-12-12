@@ -255,7 +255,7 @@ class QSAProject:
         if style_name != "default" and style_name not in self.styles:
             return False, f"Style '{style_name}' does not exist"
         mp = QSAMapProxy(self.name)
-        thread = threading.Thread(target=self.threaded_clear_cache, args=(mp,layer_name,))
+        thread = threading.Thread(target=self.threaded_clear_cache, args=(mp,layer_name))
         thread.start()
         
         flags = Qgis.ProjectReadFlags()
