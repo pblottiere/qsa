@@ -330,6 +330,7 @@ class QSAProject:
         return rc
 
     def exists(self) -> bool:
+        self.debug("Testtt : 11111")
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
             return self._qgis_project_dir.exists()
         else:
@@ -346,8 +347,9 @@ class QSAProject:
             # necessary step if the project has been created without QSA
             if self.name in projects:
                 self._qgis_projects_dir().mkdir(parents=True, exist_ok=True)
-
-            return self.name in projects and self._qgis_projects_dir().exists()
+            test = self.name in projects and self._qgis_projects_dir().exists()
+            self.debug("Testtt : 22222")
+            return test
 
     def create(self, author: str) -> (bool, str):
         if self.exists():
