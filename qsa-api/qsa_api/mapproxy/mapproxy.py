@@ -88,7 +88,7 @@ class QSAMapProxy:
             for d in cache_dir.glob(f"{layer_name}_cache_*"):
                 shutil.rmtree(d)
 
-            cache_dir = self._mapproxy_project.parent / "cache_data" / "legends"
+            # cache_dir = self._mapproxy_project.parent / "cache_data" / "legends"
             # self.debug(f"Clear legends cache '{cache_dir}'")
             # shutil.rmtree(cache_dir, ignore_errors=True)
 
