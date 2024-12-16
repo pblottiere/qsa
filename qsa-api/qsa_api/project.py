@@ -249,11 +249,11 @@ class QSAProject:
     def layer_update_style(
         self, layer_name: str, style_name: str, current: bool
     ) -> (bool, str):
-        if layer_name not in self.layers:
-            return False, f"Layer '{layer_name}' does not exist"
+        # if layer_name not in self.layers:
+        #     return False, f"Layer '{layer_name}' does not exist"
 
-        if style_name != "default" and style_name not in self.styles:
-            return False, f"Style '{style_name}' does not exist"
+        # if style_name != "default" and style_name not in self.styles:
+        #     return False, f"Style '{style_name}' does not exist"
 
         flask_app = current_app._get_current_object()
         def clear_cache_task():
@@ -330,7 +330,6 @@ class QSAProject:
         return rc
 
     def exists(self) -> bool:
-        self.debug("Testtt : 11111")
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
             return self._qgis_project_dir.exists()
         else:
@@ -347,9 +346,8 @@ class QSAProject:
             # necessary step if the project has been created without QSA
             if self.name in projects:
                 self._qgis_projects_dir().mkdir(parents=True, exist_ok=True)
-            test = self.name in projects and self._qgis_projects_dir().exists()
-            self.debug("Testtt : 22222")
-            return test
+
+            return self.name in projects and self._qgis_projects_dir().exists()
 
     def create(self, author: str) -> (bool, str):
         if self.exists():
