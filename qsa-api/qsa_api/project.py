@@ -217,8 +217,10 @@ class QSAProject:
         return s
 
     def layer(self, name: str) -> dict:
+        flags = Qgis.ProjectReadFlags()
+        flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
         project = QgsProject()
-        project.read(self._qgis_project_uri)
+        project.read(self._qgis_project_uri,flags)
 
         layers = project.mapLayersByName(name)
         if layers:
