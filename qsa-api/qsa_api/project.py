@@ -266,15 +266,18 @@ class QSAProject:
         cache_thread = threading.Thread(target=clear_cache_task)
         cache_thread.start()
         
+        self.debug("cache_thread is running")
         flags = Qgis.ProjectReadFlags()
         flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
 
         project = QgsProject()
         project.read(self._qgis_project_uri, flags)
 
+        self.debug("project.read")
         style_path = self._qgis_project_dir / f"{style_name}.qml"
         layer = project.mapLayersByName(layer_name)[0]
 
+        self.debug("project.mapLayersByName")
         if style_name not in layer.styleManager().styles():
             self.debug(f"Add new style {style_name} in style manager")
             l = layer.clone()
