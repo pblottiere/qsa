@@ -13,6 +13,7 @@ from qgis.core import (
     Qgis,
     QgsSymbol,
     QgsProject,
+    QgsSettings,
     QgsWkbTypes,
     QgsMapLayer,
     QgsUnitTypes,
@@ -261,6 +262,10 @@ class QSAProject:
         mp.clear_cache(layer_name)
         
         self.debug("cache_thread is running")
+        QgsSettings().setValue("qgis/validate_layers", False)
+        QgsSettings().setValue("qgis/disableGetPrint", True)
+
+        
         flags = Qgis.ProjectReadFlags()
         flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
         flags |= Qgis.ProjectReadFlag.DontResolveLayers
