@@ -83,7 +83,7 @@ class QSAMapProxy:
             bucket = s3.Bucket(bucket_name)
             bucket.objects.filter(Prefix=cache_dir).delete()
         else:
-            cache_dir = self._mapproxy_project.parent / "cache_data" / f"{layer_name}_cache_EPSG3857"
+            cache_dir = self._mapproxy_project.parent / "cache_data" / f"{layer_name}_cache_*"
             self.debug(f"Clear tiles cache '{cache_dir}'")
             shutil.rmtree(cache_dir,True)
             #for d in cache_dir.glob(f"{layer_name}_cache_*"):
