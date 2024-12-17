@@ -255,16 +255,10 @@ class QSAProject:
         # if style_name != "default" and style_name not in self.styles:
         #     return False, f"Style '{style_name}' does not exist"
 
-        flask_app = current_app._get_current_object()
-        def clear_cache_task():
-            with flask_app.app_context():  
-                self.debug("Clear MapProxy cache")
-                mp = QSAMapProxy(self.name)
-                mp.clear_cache(layer_name)
-
+                
         self.debug("Start thread for clearing MapProxy cache")
-        cache_thread = threading.Thread(target=clear_cache_task)
-        cache_thread.start()
+        mp = QSAMapProxy(self.name)
+        mp.clear_cache(layer_name)
         
         self.debug("cache_thread is running")
         flags = Qgis.ProjectReadFlags()
@@ -298,7 +292,6 @@ class QSAProject:
                 renderer = RasterSymbologyRenderer(layer.renderer().type())
                 renderer.refresh_min_max(layer)
 
-        cache_thread.join()  # Attendre la fin du thread
         self.debug("Write project")
         project.write()
 
