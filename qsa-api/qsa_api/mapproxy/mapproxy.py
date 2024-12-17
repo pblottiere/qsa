@@ -2,7 +2,6 @@
 
 import sys
 import yaml
-import os
 import boto3
 import shutil
 from pathlib import Path
@@ -87,8 +86,7 @@ class QSAMapProxy:
             cache_dir = self._mapproxy_project.parent / "cache_data" / f"{layer_name}_cache_EPSG3857"
             self.debug(f"Clear tiles cache '{cache_dir}'")
             try: 
-                os.rmdir(cache_dir)
-
+                shutil.rmtree(cache_dir)
             except FileNotFoundError:
                 self.debug(f"Le répertoire {cache_dir} n'existe pas.")
                 
