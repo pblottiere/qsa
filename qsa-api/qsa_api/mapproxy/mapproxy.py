@@ -87,7 +87,7 @@ class QSAMapProxy:
             self.debug(f"Clear tiles cache '{cache_dir}'")
             try: 
                 shutil.rmtree(cache_dir)
-            except FileNotFoundError:
+            except:
                 self.debug(f"Le répertoire {cache_dir} n'existe pas.")
                 for d in cache_dir.glob(f"{layer_name}_cache_*"):
                     shutil.rmtree(d)
