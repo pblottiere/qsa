@@ -3,7 +3,6 @@
 import sys
 import yaml
 import boto3
-import os
 import shutil
 from pathlib import Path
 
@@ -86,7 +85,7 @@ class QSAMapProxy:
         else:
             cache_dir = self._mapproxy_project.parent / "cache_data" / f"{layer_name}_cache_EPSG3857"
             self.debug(f"Clear tiles cache '{cache_dir}'")
-            os.rmdir(cache_dir)
+            shutil.rmtree(cache_dir)
             #for d in cache_dir.glob(f"{layer_name}_cache_*"):
             #    shutil.rmtree(d)
 
