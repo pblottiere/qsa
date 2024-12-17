@@ -263,6 +263,7 @@ class QSAProject:
         self.debug("cache_thread is running")
         flags = Qgis.ProjectReadFlags()
         flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
+        flags |= Qgis.ProjectReadFlag.DontResolveLayers
 
         project = QgsProject()
         project.read(self._qgis_project_uri, flags)
