@@ -95,6 +95,17 @@ class QSAProject:
                 .projectStorageRegistry()
                 .projectStorageFromType("postgresql")
             )
+            
+            QgsSettings().setValue("qgis/validate_layers", False)
+            QgsSettings().setValue("qgis/disableGetPrint", True)
+            QgsSettings().setValue("qgis/enable_labeling", False)
+            QgsSettings().setValue("qgis/enable_advanced_editing", False)
+            QgsSettings().setValue("qgis/disable_layouts", True)
+            QgsSettings().setValue("qgis/ignore_crs_transforms", True)
+            QgsSettings().setValue("qgis/skipWMSConnections", True)
+            QgsSettings().setValue("qgis/enable_rendering_cache", False)
+            QgsSettings().setValue("qgis/enable_onscreen_rendering", False)
+            
             for pname in storage.listProjects(uri):
                 p.append(QSAProject(pname, schema))
 
@@ -262,17 +273,7 @@ class QSAProject:
         mp.clear_cache(layer_name)
         
         self.debug("cache_thread is running")
-        QgsSettings().setValue("qgis/validate_layers", False)
-        QgsSettings().setValue("qgis/disableGetPrint", True)
-        
-        QgsSettings().setValue("qgis/enable_labeling", False)
-        QgsSettings().setValue("qgis/enable_advanced_editing", False)
-        QgsSettings().setValue("qgis/disableGetPrint", True)
-        QgsSettings().setValue("qgis/disable_layouts", True)
-        QgsSettings().setValue("qgis/ignore_crs_transforms", True)
-        QgsSettings().setValue("qgis/skipWMSConnections", True)
-        QgsSettings().setValue("qgis/enable_rendering_cache", False)
-        QgsSettings().setValue("qgis/enable_onscreen_rendering", False)
+     
         
         flags = Qgis.ProjectReadFlags()
         #flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
