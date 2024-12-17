@@ -89,12 +89,7 @@ class QSAMapProxy:
             
             for d in cache_dir.glob(f"{layer_name}_cache_*"):
                 self.debug(f"Test cache  '{d}'")
-                for root, dirs, files in os.walk(d, topdown=False):
-                    for name in files:
-                        os.remove(os.path.join(root, name))
-                    for name in dirs:
-                        os.rmdir(os.path.join(root, name))
-                os.rmdir(d)
+                os.system(f"rm -rf '{d}'")
 
             self.debug(f"End tiles cache '{cache_dir}'")
             # cache_dir = self._mapproxy_project.parent / "cache_data" / "legends"
