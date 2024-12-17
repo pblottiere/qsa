@@ -83,17 +83,12 @@ class QSAMapProxy:
             bucket = s3.Bucket(bucket_name)
             bucket.objects.filter(Prefix=cache_dir).delete()
         else:
-            cache_dir = self._mapproxy_project.parent / "cache_data" / f"{layer_name}_cache_EPSG3857"
+            cache_dir = self._mapproxy_project.parent / "cache_data"
             self.debug(f"Clear tiles cache '{cache_dir}'")
-            try: 
-                shutil.rmtree(cache_dir)
-            except:
-                self.debug(f"Le répertoire {cache_dir} n'existe pas.")
-                for d in cache_dir.glob(f"{layer_name}_cache_*"):
-                    shutil.rmtree(d)
-                
-            #for d in cache_dir.glob(f"{layer_name}_cache_*"):
-            #    shutil.rmtree(d)
+            
+            for d in cache_dir.glob(f"{layer_name}_cache_*"):
+                self.debug(f"Test cache  '{d}'")
+                shutil.rmtree(d)
 
             self.debug(f"End tiles cache '{cache_dir}'")
             # cache_dir = self._mapproxy_project.parent / "cache_data" / "legends"
