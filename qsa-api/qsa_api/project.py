@@ -275,12 +275,12 @@ class QSAProject:
         QgsSettings().setValue("qgis/enable_onscreen_rendering", False)
         
         flags = Qgis.ProjectReadFlags()
-        flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
-        flags |= Qgis.ProjectReadFlag.DontLoadLayouts
+        #flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
+        flags |= Qgis.ProjectReadFlag.FlagDontLoadLayouts
         flags |= Qgis.ProjectReadFlag.FlagTrustLayerMetadata
-        flags |= Qgis.ProjectReadFlag.SkipInvalidLayers
-        flags |= Qgis.ProjectReadFlag.DontResolveLinks
-        flags |= Qgis.ProjectReadFlag.NoTransactionSupport
+        flags |= Qgis.ProjectReadFlag.FlagDontLoad3DViews
+        flags |= Qgis.ProjectReadFlag.FlagDontResolveLayers
+        flags |= Qgis.ProjectReadFlag.FlagDontStoreOriginalStyles
 
         project = QgsProject()
         project.read(self._qgis_project_uri, flags)
