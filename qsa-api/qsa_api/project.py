@@ -276,6 +276,11 @@ class QSAProject:
         
         flags = Qgis.ProjectReadFlags()
         flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
+        flags |= Qgis.ProjectReadFlag.DontLoadLayouts
+        flags |= Qgis.ProjectReadFlag.FlagTrustLayerMetadata
+        flags |= Qgis.ProjectReadFlag.SkipInvalidLayers
+        flags |= Qgis.ProjectReadFlag.DontResolveLinks
+        flags |= Qgis.ProjectReadFlag.NoTransactionSupport
 
         project = QgsProject()
         project.read(self._qgis_project_uri, flags)
