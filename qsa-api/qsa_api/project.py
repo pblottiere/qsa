@@ -266,7 +266,6 @@ class QSAProject:
 
         # if style_name != "default" and style_name not in self.styles:
         #     return False, f"Style '{style_name}' does not exist"
-
                 
         self.debug("Start thread for clearing MapProxy cache")
         mp = QSAMapProxy(self.name)
@@ -276,7 +275,6 @@ class QSAProject:
      
         
         flags = Qgis.ProjectReadFlags()
-        #flags |= Qgis.ProjectReadFlag.ForceReadOnlyLayers
         flags |= Qgis.ProjectReadFlag.FlagDontLoadLayouts
         flags |= Qgis.ProjectReadFlag.FlagTrustLayerMetadata
         flags |= Qgis.ProjectReadFlag.FlagDontLoad3DViews
