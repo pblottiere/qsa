@@ -89,6 +89,8 @@ class QSAMapProxy:
                 shutil.rmtree(cache_dir)
             except FileNotFoundError:
                 self.debug(f"Le répertoire {cache_dir} n'existe pas.")
+                for d in cache_dir.glob(f"{layer_name}_cache_*"):
+                    shutil.rmtree(d)
                 
             #for d in cache_dir.glob(f"{layer_name}_cache_*"):
             #    shutil.rmtree(d)
