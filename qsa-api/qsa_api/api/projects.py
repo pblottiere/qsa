@@ -362,6 +362,7 @@ def project_add_layer(name):
             try:
                 validate(data, schema)
             except ValidationError as e:
+                logger().exception(str(e.message))                
                 return {"error": e.message}, 415
 
             crs = -1
@@ -379,6 +380,7 @@ def project_add_layer(name):
                     data["datetime"], "yyyy-MM-dd HH:mm:ss"
                 )
                 if not datetime.isValid():
+                    logger().exception("Invalid datetime")          
                     return {"error": "Invalid datetime"}, 415
 
             rc, err = project.add_layer(
@@ -392,8 +394,10 @@ def project_add_layer(name):
             if rc:
                 return jsonify(rc), 201
             else:
+                logger().exception(str(err))  
                 return {"error": err}, 415
         else:
+            logger().exception("Project does not exist")
             return {"error": "Project does not exist"}, 415
     except Exception as e:
         logger().exception(str(e))
