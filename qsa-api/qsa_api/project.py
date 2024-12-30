@@ -766,6 +766,27 @@ class QSAProject:
                     svg_layer.setSize(graduated_value["symbol_size"])
                     symbol.changeSymbolLayer(0, svg_layer)
                     
+                    effect_stack = QgsEffectStack()
+                    
+                    drop_shadow = QgsDropShadowEffect()
+
+                    drop_shadow.setColor(QColor(23, 23, 23, 127))  
+                    drop_shadow.setOffsetUnit(QgsUnitTypes.RenderPercentage)
+                    drop_shadow.setBlurUnit(QgsUnitTypes.RenderPercentage)
+                    drop_shadow.setBlurLevel(1.2)
+                    drop_shadow.setOffsetAngle(155)
+                    drop_shadow.setOffsetDistance(2.2)
+                    drop_shadow.setBlendMode(1)
+                    
+                    effect_stack.appendEffect(drop_shadow)
+
+                    source_effect = QgsDrawSourceEffect()
+                    source_effect.setEnabled(True)
+                    effect_stack.appendEffect(source_effect)
+
+                    for layer in symbol.symbolLayers():
+                        layer.setPaintEffect(effect_stack)
+                        
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
                     ranges.append(range)
             case other:  
