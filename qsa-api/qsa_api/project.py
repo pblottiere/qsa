@@ -760,6 +760,9 @@ class QSAProject:
                 for graduated_value in properties["list_graduated"]:
                     properties = {
                     }
+                    properties["outline_width"] = 0.5
+                    properties["outline_style"] = "solid"
+                    properties["outline_color"] = "#FFFFFF"
                     symbol = QgsMarkerSymbol.createSimple(properties)
                     svg_layer = QgsSvgMarkerSymbolLayer(graduated_value["symbol_path"])
                     svg_layer.setColor(QColor(graduated_value["color"]))
