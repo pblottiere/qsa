@@ -706,8 +706,18 @@ class QSAProject:
 
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
-            case "marker":
-                    return None #Not implement
+            case "marker":  
+                for categorized_value in properties["list_categorized"]:
+                    properties = {
+                    }
+                    symbol = QgsMarkerSymbol.createSimple(properties)
+                    svg_layer = QgsSvgMarkerSymbolLayer(categorized_value["symbol_path"])
+                    svg_layer.setColor(QColor(categorized_value["color"]))
+                    svg_layer.setSize(categorized_value["symbol_size"])
+                    symbol.changeSymbolLayer(0, svg_layer)
+                    
+                    range = QgsRendererRange(categorized_value["min"], categorized_value["max"], symbol, "test")
+                    ranges.append(range)
             case other:  
                     return None #Not implement
                 
@@ -749,13 +759,11 @@ class QSAProject:
             case "marker": 
                 for graduated_value in properties["list_graduated"]:
                     properties = {
-                        # "outline_width" : graduated_value["outline_width"],
-                        # "outline_style" : graduated_value["outline_style"],
                     }
                     symbol = QgsMarkerSymbol.createSimple(properties)
                     svg_layer = QgsSvgMarkerSymbolLayer(graduated_value["symbol_path"])
                     svg_layer.setColor(QColor(graduated_value["color"]))
-                    svg_layer.setSize(10)
+                    svg_layer.setSize(graduated_value["symbol_size"])
                     symbol.changeSymbolLayer(0, svg_layer)
                     
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
