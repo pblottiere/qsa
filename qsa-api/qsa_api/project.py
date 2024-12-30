@@ -753,8 +753,8 @@ class QSAProject:
                         # "outline_style" : graduated_value["outline_style"],
                     }
                     symbol = QgsMarkerSymbol.createSimple(properties)
-                    symbol.setColor(QColor(graduated_value["color"]))
                     svg_layer = QgsSvgMarkerSymbolLayer("/qsa/qsa-api/apartment.svg")
+                    svg_layer.setColor(QColor(graduated_value["color"]))
                     svg_layer.setSize(10)
                     # svg_layer.setFillColor(QColor(graduated_value["fill_color"]))
                     # svg_layer.setStrokeColor(QColor(graduated_value["outline_color"]))
