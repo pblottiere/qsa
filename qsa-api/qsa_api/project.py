@@ -2,10 +2,8 @@
 
 import sys
 import shutil
-import threading
 import sqlite3
 from pathlib import Path
-from flask import current_app
 
 from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtCore import Qt, QDateTime
@@ -267,11 +265,11 @@ class QSAProject:
         # if style_name != "default" and style_name not in self.styles:
         #     return False, f"Style '{style_name}' does not exist"
                 
-        self.debug("Start thread for clearing MapProxy cache")
+        self.debug("Start for clearing MapProxy cache")
         mp = QSAMapProxy(self.name)
         mp.clear_cache(layer_name)
         
-        self.debug("cache_thread is running")
+        self.debug("clear_cache is finish")
      
         
         flags = Qgis.ProjectReadFlags()
@@ -341,9 +339,12 @@ class QSAProject:
         return rc
 
     def exists(self) -> bool:
+        self.debug("test exist")
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
+            self.debug("test exist 3")
             return self._qgis_project_dir.exists()
         else:
+            self.debug("test exist 2")
             service = config().qgisserver_projects_psql_service
             uri = f"postgresql:?service={service}&schema={self.schema}"
 
