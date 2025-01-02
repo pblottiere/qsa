@@ -808,7 +808,8 @@ class QSAProject:
             case other:  
                     return None #Not implement
                 
-        render = QgsSingleSymbolRenderer(symbol)
+        render = QgsSingleSymbolRenderer()
+        render.setSymbol(symbol)
         return render
 
 
