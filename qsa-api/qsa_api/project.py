@@ -717,7 +717,7 @@ class QSAProject:
                     svg_layer.setSize(categorized_value["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
                     
-                    range = QgsRendererRange(categorized_value["value"], symbol, "test")
+                    range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
             case other:  
                     return None #Not implement
