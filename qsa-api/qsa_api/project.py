@@ -735,7 +735,7 @@ class QSAProject:
             case "fill":
                 for graduated_value in properties["list_graduated"]:
                     properties = {
-                        "outline_width" : graduated_value["outline_width"],
+                        "outline_width" : graduated_value["outline_width"], 
                         "outline_style" : graduated_value["outline_style"],
                         "outline_color" : graduated_value["outline_color"],
                     }
@@ -763,7 +763,7 @@ class QSAProject:
                     symbol = QgsMarkerSymbol.createSimple(properties)
                     svg_layer = QgsSvgMarkerSymbolLayer(graduated_value["symbol_path"])
                     svg_layer.setColor(QColor(graduated_value["color"]))
-                    svg_layer.setSize(graduated_value["symbol_size"])
+                    svg_layer.setSize(graduated_value["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
                     
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
@@ -779,69 +779,36 @@ class QSAProject:
           
         symbol = symbology["symbol"]
         properties = symbology["properties"]
-        
-        match symbol: 
-            case "line":
-                render = QgsSingleSymbolRenderer(
-                    QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
-                )
-
-                props = QgsSimpleLineSymbolLayer().properties()
-                for key in properties.keys():
-                    if key not in props:
-                        return None
-
-                symbol = QgsLineSymbol.createSimple(properties)
-                symbol.layer
-                render.setSymbol(symbol)
+                
+        match symbol:
             case "fill":
-                render = QgsSingleSymbolRenderer(
-                    QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
-                )
+                properties_fill = {
+                    "outline_width" : properties["outline_width"], 
+                    "outline_style" : properties["outline_style"],
+                    "outline_color" : properties["outline_color"],
+                }
+                symbol = QgsFillSymbol.createSimple(properties_fill)
+                symbol.setColor(QColor(properties["color"]))
+            case "line":
+                properties_line = {
+                    "line_width" : properties["outline_width"],
+                    "line_style" : properties["outline_style"],
+                }
+                symbol = QgsLineSymbol.createSimple(properties_line)
+                symbol.setColor(QColor(properties["outline_color"]))
 
-                props = QgsSimpleFillSymbolLayer().properties()
-                for key in properties.keys():
-                    if key not in props:
-                        return None
-
-                symbol = QgsFillSymbol.createSimple(properties)
-                render.setSymbol(symbol)
-            case "marker":
-                render = QgsSingleSymbolRenderer(QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry))
-                properties["outline_width"] = 0.5
-                properties["outline_style"] = "solid"
-                properties["outline_color"] = "#FFFFFF"
-                props = QgsSimpleMarkerSymbolLayer().properties()
-                for key in properties.keys():
-                    if key not in props:
-                        return None
-
-                symbol = QgsMarkerSymbol.createSimple(properties)
+            case "marker": 
+                    properties_marker = {
+                    }
+                    symbol = QgsMarkerSymbol.createSimple(properties_marker)
+                    svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"])
+                    svg_layer.setColor(QColor(properties["color"]))
+                    svg_layer.setSize(properties["size"])
+                    symbol.changeSymbolLayer(0, svg_layer)
+            case other:  
+                    return None #Not implement
                 
-                effect_stack = QgsEffectStack()
-                
-                drop_shadow = QgsDropShadowEffect()
-
-                drop_shadow.setColor(QColor(23, 23, 23, 127))  
-                drop_shadow.setOffsetUnit(QgsUnitTypes.RenderPercentage)
-                drop_shadow.setBlurUnit(QgsUnitTypes.RenderPercentage)
-                drop_shadow.setBlurLevel(1.2)
-                drop_shadow.setOffsetAngle(155)
-                drop_shadow.setOffsetDistance(2.2)
-                drop_shadow.setBlendMode(1)
-                
-                effect_stack.appendEffect(drop_shadow)
-
-                source_effect = QgsDrawSourceEffect()
-                source_effect.setEnabled(True)
-                effect_stack.appendEffect(source_effect)
-
-                for layer in symbol.symbolLayers():
-                    layer.setPaintEffect(effect_stack)
-                    
-                    
-                    
-                render.setSymbol(symbol)
+        render = QgsSingleSymbolRenderer(symbol)
         return render
 
 
