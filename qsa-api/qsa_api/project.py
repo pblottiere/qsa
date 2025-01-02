@@ -714,7 +714,7 @@ class QSAProject:
                     symbol = QgsMarkerSymbol.createSimple(properties)
                     svg_layer = QgsSvgMarkerSymbolLayer(categorized_value["symbol_path"])
                     svg_layer.setColor(QColor(categorized_value["color"]))
-                    svg_layer.setSize(categorized_value["symbol_size"])
+                    svg_layer.setSize(categorized_value["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
                     
                     range = QgsRendererRange(categorized_value["min"], categorized_value["max"], symbol, "test")
