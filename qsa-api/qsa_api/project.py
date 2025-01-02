@@ -786,9 +786,9 @@ class QSAProject:
                     "outline_width" : properties["outline_width"], 
                     "outline_style" : properties["outline_style"],
                     "outline_color" : properties["outline_color"],
+                    "color" : properties["color"],
                 }
                 symbol = QgsFillSymbol.createSimple(properties_fill)
-                symbol.setColor(QColor(properties["color"]))
             case "line":
                 properties_line = {
                     "line_width" : properties["outline_width"],
