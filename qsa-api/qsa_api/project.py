@@ -357,7 +357,7 @@ class QSAProject:
             )
             self.debug("test exist 6")
             projects = storage.listProjects(uri)
-            self.debug(f"test exist 7 : project.count : {projects.count()}")
+            self.debug(f"test exist 7 : project.count : {len(projects)}")
 
             # necessary step if the project has been created without QSA
             if self.name in projects:
