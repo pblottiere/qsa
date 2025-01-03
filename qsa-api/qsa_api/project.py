@@ -91,7 +91,7 @@ class QSAProject:
             storage = (
                 QgsApplication.instance()
                 .projectStorageRegistry()
-                .projectStorageFromType("postgres")
+                .projectStorageFromType("postgresql")
             )
             
             QgsSettings().setValue("qgis/validate_layers", False)
@@ -357,7 +357,7 @@ class QSAProject:
             )
             self.debug("test exist 6")
             projects = storage.listProjects(uri)
-            self.debug(f"test exist 7 : project.count : {len(projects)}")
+            self.debug(f"test exist 7 : project.count : {projects.count()}")
 
             # necessary step if the project has been created without QSA
             if self.name in projects:
@@ -416,7 +416,7 @@ class QSAProject:
             storage = (
                 QgsApplication.instance()
                 .projectStorageRegistry()
-                .projectStorageFromType("postgres")
+                .projectStorageFromType("postgresql")
             )
             storage.removeProject(self._qgis_project_uri)
 
