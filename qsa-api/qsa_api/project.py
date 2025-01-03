@@ -91,7 +91,7 @@ class QSAProject:
             storage = (
                 QgsApplication.instance()
                 .projectStorageRegistry()
-                .projectStorageFromType("postgresql")
+                .projectStorageFromType("postgres")
             )
             
             QgsSettings().setValue("qgis/validate_layers", False)
@@ -416,7 +416,7 @@ class QSAProject:
             storage = (
                 QgsApplication.instance()
                 .projectStorageRegistry()
-                .projectStorageFromType("postgresql")
+                .projectStorageFromType("postgres")
             )
             storage.removeProject(self._qgis_project_uri)
 
