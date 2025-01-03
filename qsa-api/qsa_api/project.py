@@ -273,6 +273,9 @@ class QSAProject:
      
         
         flags = Qgis.ProjectReadFlags()
+        flags |= Qgis.ProjectReadFlag.FlagDontLoadLayouts
+        flags |= Qgis.ProjectReadFlag.FlagTrustLayerMetadata
+        flags |= Qgis.ProjectReadFlag.FlagDontLoad3DViews
 
         project = QgsProject()
         project.read(self._qgis_project_uri, flags)
@@ -354,7 +357,7 @@ class QSAProject:
             )
             self.debug("test exist 6")
             projects = storage.listProjects(uri)
-            self.debug("test exist 7")
+            self.debug(f"test exist 7 : project.count : {projects.count()}")
 
             # necessary step if the project has been created without QSA
             if self.name in projects:
