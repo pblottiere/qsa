@@ -339,16 +339,14 @@ class QSAProject:
         return rc
 
     def exists(self) -> bool:
-        self.debug("test exist")
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
-            self.debug("test exist 3")
             return self._qgis_project_dir.exists()
         else:
-            self.debug("test exist 2")
             service = config().qgisserver_projects_psql_service
-            self.debug(f"test exist 4 service {service}")
+            for attr, value in vars(service).items():
+                self.debug(f"{attr}: {value}")
             uri = f"postgresql://qsa:qsa@postgres:5432/qsa?sslmode=disable&schema=public"
-            self.debug(f"test exist 5 service : {service} - &schema={self.schema}")
+            self.debug(f"test exist 5 service : {service[""]} - &schema={self.schema}")
 
             storage = (
                 QgsApplication.instance()
@@ -910,9 +908,6 @@ class QSAProject:
     @property
     def _qgis_project_uri(self) -> str:
         if StorageBackend.type() == StorageBackend.POSTGRESQL:
-            self.debug("_qgis_project_uri :StorageBackend.POSTGRESQL ")
-            service = config().qgisserver_projects_psql_service
             return f"postgresql://qsa:qsa@postgres:5432/qsa?sslmode=disable&schema=public&project={self.name}"
         else:
-            self.debug("_qgis_project_uri :StorageBackend.other ")
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
