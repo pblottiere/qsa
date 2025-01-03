@@ -342,10 +342,12 @@ class QSAProject:
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
             return self._qgis_project_dir.exists()
         else:
-            service = config().qgisserver_projects_psql_service
-            for attr, value in vars(service).items():
-                self.debug(f"{attr}: {value}")
-            uri = f"postgresql://qsa:qsa@postgres:5432/qsa?sslmode=disable&schema=public"
+            dbname = config().qgisserver_projects_psql_dbname
+            user = config().qgisserver_projects_psql_user
+            password = config().qgisserver_projects_psql_password
+            host = config().qgisserver_projects_psql_host
+            port = config().qgisserver_projects_psql_port
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
             self.debug(f"test exist 5 service : {service[""]} - &schema={self.schema}")
 
             storage = (
@@ -908,6 +910,11 @@ class QSAProject:
     @property
     def _qgis_project_uri(self) -> str:
         if StorageBackend.type() == StorageBackend.POSTGRESQL:
-            return f"postgresql://qsa:qsa@postgres:5432/qsa?sslmode=disable&schema=public&project={self.name}"
+            dbname = config().qgisserver_projects_psql_dbname
+            user = config().qgisserver_projects_psql_user
+            password = config().qgisserver_projects_psql_password
+            host = config().qgisserver_projects_psql_host
+            port = config().qgisserver_projects_psql_port
+            return f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public&project={self.name}"
         else:
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()

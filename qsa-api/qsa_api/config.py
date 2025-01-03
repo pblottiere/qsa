@@ -42,7 +42,21 @@ class QSAConfig:
     @property
     def qgisserver_projects_psql_service(self) -> str:
         return os.environ.get("QSA_QGISSERVER_PROJECTS_PSQL_SERVICE", "")
-
+    @property
+    def qgisserver_projects_psql_dbname(self) -> str:
+        return os.environ.get("QSA_QGISSERVER_PROJECTS_PSQL_DBNAME", "")
+    @property
+    def qgisserver_projects_psql_user(self) -> str:
+        return os.environ.get("QSA_QGISSERVER_PROJECTS_PSQL_USER", "")
+    @property
+    def qgisserver_projects_psql_password(self) -> str:
+        return os.environ.get("QSA_QGISSERVER_PROJECTS_PSQL_PASSWORD", "")
+    @property
+    def qgisserver_projects_psql_host(self) -> str:
+        return os.environ.get("QSA_QGISSERVER_PROJECTS_PSQL_HOST", "")
+    @property
+    def qgisserver_projects_psql_port(self) -> str:
+        return os.environ.get("QSA_QGISSERVER_PROJECTS_PSQL_PORT", "")
     @property
     def mapproxy_projects_dir(self) -> str:
         return os.environ.get("QSA_MAPPROXY_PROJECTS_DIR", "").replace('"', "")
