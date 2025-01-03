@@ -355,9 +355,9 @@ class QSAProject:
                 .projectStorageRegistry()
                 .projectStorageFromType("postgresql")
             )
-            self.debug("test exist 6")
+            self.debug(f"test exist 6  - uritest  : {storage.isSupportedUri(uri)}")
             projects = storage.listProjects(uri)
-            self.debug(f"test exist 7 : project.count : ")
+            self.debug(f"test exist 7 : project.count : {len(projects)}")
 
             # necessary step if the project has been created without QSA
             if self.name in projects:
