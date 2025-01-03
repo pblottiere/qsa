@@ -353,7 +353,7 @@ class QSAProject:
             storage = (
                 QgsApplication.instance()
                 .projectStorageRegistry()
-                .projectStorageFromType("postgresql")
+                .projectStorageFromType("postgres")
             )
             self.debug("test exist 6")
             projects = storage.listProjects(uri)
