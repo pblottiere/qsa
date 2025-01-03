@@ -348,21 +348,16 @@ class QSAProject:
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
             uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
-            self.debug("uri")
-
             storage = (
                 QgsApplication.instance()
                 .projectStorageRegistry()
                 .projectStorageFromType("postgresql")
             )
-            self.debug(f"test exist 6  - uritest  : {storage.isSupportedUri(uri)}")
             projects = storage.listProjects(uri)
-            self.debug(f"test exist 7 : project.count : {len(projects)}")
 
             # necessary step if the project has been created without QSA
             if self.name in projects:
                 self._qgis_projects_dir().mkdir(parents=True, exist_ok=True)
-            self.debug("test exist 8")
 
             return self.name in projects and self._qgis_projects_dir().exists()
 
