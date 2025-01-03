@@ -912,7 +912,7 @@ class QSAProject:
         if StorageBackend.type() == StorageBackend.POSTGRESQL:
             self.debug("_qgis_project_uri :StorageBackend.POSTGRESQL ")
             service = config().qgisserver_projects_psql_service
-            return f"postgresql:?service={service}&schema={self.schema}&project={self.name}"
+            return f"postgresql://qsa:qsa@postgres:5432/qsa?sslmode=disable&schema=public&project={self.name}"
         else:
             self.debug("_qgis_project_uri :StorageBackend.other ")
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
