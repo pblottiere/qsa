@@ -346,8 +346,8 @@ class QSAProject:
         else:
             self.debug("test exist 2")
             service = config().qgisserver_projects_psql_service
-            self.debug(f"test exist 4  : service {service}")
-            uri = f"postgresql://qsa:qsa@localhost:5433/qsa?sslmode=disable&schema=public"
+            self.debug(f"test exist 4 service {service}")
+            uri = f"postgresql:?service={service}&schema={self.schema}"
             self.debug(f"test exist 5 service : {service} - &schema={self.schema}")
 
             storage = (
