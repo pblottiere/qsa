@@ -346,18 +346,23 @@ class QSAProject:
         else:
             self.debug("test exist 2")
             service = config().qgisserver_projects_psql_service
+            self.debug("test exist 4")
             uri = f"postgresql:?service={service}&schema={self.schema}"
+            self.debug("test exist 5")
 
             storage = (
                 QgsApplication.instance()
                 .projectStorageRegistry()
                 .projectStorageFromType("postgresql")
             )
+            self.debug("test exist 6")
             projects = storage.listProjects(uri)
+            self.debug("test exist 7")
 
             # necessary step if the project has been created without QSA
             if self.name in projects:
                 self._qgis_projects_dir().mkdir(parents=True, exist_ok=True)
+            self.debug("test exist 8")
 
             return self.name in projects and self._qgis_projects_dir().exists()
 
