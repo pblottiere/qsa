@@ -900,11 +900,7 @@ class QSAProject:
     @property
     def _qgis_project_uri(self) -> str:
         if StorageBackend.type() == StorageBackend.POSTGRESQL:
-            dbname = config().qgisserver_projects_psql_dbname
-            user = config().qgisserver_projects_psql_user
-            password = config().qgisserver_projects_psql_password
-            host = config().qgisserver_projects_psql_host
-            port = config().qgisserver_projects_psql_port
-            return f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public&project={self.name}"
+            service = config().qgisserver_projects_psql_service
+            return f"postgresql:?service={service}&schema={self.schema}&project={self.name}"
         else:
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
