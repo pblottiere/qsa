@@ -792,7 +792,7 @@ class QSAProject:
                     symbol = QgsMarkerSymbol.createSimple(properties_marker)
                     svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"])
                     
-                    svg_layer.setColor(QColor(testSplit[0],testSplit[1],testSplit[2],testSplit[3]))
+                    svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setSize(properties["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
             case other:  
