@@ -347,7 +347,7 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            uri = f"postgres://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
             self.debug(uri)
             storage = (
                 QgsApplication.instance()
