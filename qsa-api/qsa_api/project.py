@@ -342,21 +342,15 @@ class QSAProject:
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
             return self._qgis_project_dir.exists()
         else:
-            dbname = config().qgisserver_projects_psql_dbname
-            user = config().qgisserver_projects_psql_user
-            password = config().qgisserver_projects_psql_password
-            host = config().qgisserver_projects_psql_host
-            port = config().qgisserver_projects_psql_port
-            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
-            self.debug(uri)
+            service = config().qgisserver_projects_psql_service
+            uri = f"postgresql:?service={service}&schema={self.schema}"
+
             storage = (
                 QgsApplication.instance()
                 .projectStorageRegistry()
                 .projectStorageFromType("postgresql")
             )
             projects = storage.listProjects(uri)
-            self.debug(f"test {len(projects)}")
-            # necessary step if the project has been created without QSA
             if self.name in projects:
                 self._qgis_projects_dir().mkdir(parents=True, exist_ok=True)
 
