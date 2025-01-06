@@ -788,7 +788,7 @@ class QSAProject:
                     properties_marker = {
                     }
                     
-                    testSplit =str(properties["color"]).split(',')
+                    testSplit =str(properties["color"]).split(",")
                     symbol = QgsMarkerSymbol.createSimple(properties_marker)
                     svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"])
                     
