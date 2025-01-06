@@ -787,11 +787,15 @@ class QSAProject:
                     properties_marker = {
                     }
                     symbol = QgsMarkerSymbol.createSimple(properties_marker)
-                    svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"])
+                    properties_marker = {
+                        "size":properties["size"],
+                        "color":properties["color"]
+                    }
+                    #svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"])
+                    svg_layer = QgsSvgMarkerSymbolLayer.create(properties_marker)
+                    svg_layer.SetPath(properties["symbol_path"])
                     for a in svg_layer.properties():
                         self.debug(f"{a}")
-                    svg_layer.setColor(QColor(properties["color"]))
-                    svg_layer.setSize(properties["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
             case other:  
                     return None #Not implement
