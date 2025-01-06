@@ -81,7 +81,7 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable"
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&options=--search_path%3Dpublic"
 
             storage = (
                 QgsApplication.instance()
@@ -330,7 +330,7 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable"
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&options=--search_path%3Dpublic"
             self.debug(uri)
             storage = (
                 QgsApplication.instance()
@@ -895,7 +895,7 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable"
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&options=--search_path%3Dpublic"
             return f"{uri}&project={self.name}"
         else:
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
