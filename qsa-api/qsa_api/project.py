@@ -789,11 +789,12 @@ class QSAProject:
                     symbol = QgsMarkerSymbol.createSimple(properties_marker)
                     properties_marker = {
                         "size":properties["size"],
-                        "color":properties["color"]
+                        "color":properties["color"],
+                        "path":properties["symbol_path"]
                     }
-                    #svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"])
+                    #svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"],properties_marker)
+                    
                     svg_layer = QgsSvgMarkerSymbolLayer.create(properties_marker)
-                    svg_layer.SetPath(properties["symbol_path"])
                     for a in svg_layer.properties():
                         self.debug(f"{a}")
                     symbol.changeSymbolLayer(0, svg_layer)
