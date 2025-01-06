@@ -272,10 +272,14 @@ class QSAProject:
         self.debug("clear_cache is finish")
      
         
-        flags = Qgis.ProjectReadFlags()
-
+        dbname = config().qgisserver_projects_psql_dbname
+        user = config().qgisserver_projects_psql_user
+        password = config().qgisserver_projects_psql_password
+        host = config().qgisserver_projects_psql_host
+        port = config().qgisserver_projects_psql_port
+        uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
         project = QgsProject()
-        project.read(self._qgis_project_uri, flags)
+        project.read(uri)
 
         self.debug(f"project.read : {len(project.mapLayers(False))}")
         style_path = self._qgis_project_dir / f"{style_name}.qml"
