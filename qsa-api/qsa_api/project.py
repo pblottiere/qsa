@@ -779,15 +779,17 @@ class QSAProject:
                 properties_line = {
                     "line_width" : properties["outline_width"],
                     "line_style" : properties["outline_style"],
+                    "color" : properties["outline_color"]
                 }
                 symbol = QgsLineSymbol.createSimple(properties_line)
-                symbol.setColor(QColor(properties["outline_color"]))
 
             case "marker": 
                     properties_marker = {
                     }
                     symbol = QgsMarkerSymbol.createSimple(properties_marker)
                     svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"])
+                    for a in svg_layer.properties():
+                        self.debug(f"{a}")
                     svg_layer.setColor(QColor(properties["color"]))
                     svg_layer.setSize(properties["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
