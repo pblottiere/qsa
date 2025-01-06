@@ -71,11 +71,11 @@ class QSAProject:
         p = []
 
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
-            # for i in QSAProject._qgis_projects_dir().glob("**/*.qgs"):
-            #     name = i.parent.name.replace(
-            #         QSAProject._qgis_project_dir_prefix(), ""
-            #     )
-            #     p.append(QSAProject(name))
+            for i in QSAProject._qgis_projects_dir().glob("**/*.qgs"):
+                name = i.parent.name.replace(
+                    QSAProject._qgis_project_dir_prefix(), ""
+                )
+                p.append(QSAProject(name))
             return p
         else:
             dbname = config().qgisserver_projects_psql_dbname
@@ -83,7 +83,9 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+            
+            service = config().qgisserver_projects_psql_service
+            uri = f"postgresql:?service={service}&schema={schema}"
 
             storage = (
                 QgsApplication.instance()
@@ -332,7 +334,9 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+            #uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+            service = config().qgisserver_projects_psql_service
+            uri = f"postgresql:?service={service}&schema={self.schema}"
             self.debug(uri)
             storage = (
                 QgsApplication.instance()
@@ -913,7 +917,9 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
-            return f"{uri}&project={self.name}"
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public&project={self.name}"
+            
+            service = config().qgisserver_projects_psql_service
+            return f"postgresql:?service={service}&schema={self.schema}&project={self.name}"
         else:
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
