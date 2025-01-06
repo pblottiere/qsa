@@ -280,7 +280,7 @@ class QSAProject:
         project = QgsProject()
         project.read(self._qgis_project_uri, flags)
 
-        self.debug("project.read")
+        self.debug(f"project.read : {len(project.mapLayers(False))}")
         style_path = self._qgis_project_dir / f"{style_name}.qml"
         layer = project.mapLayersByName(layer_name)[0]
 
