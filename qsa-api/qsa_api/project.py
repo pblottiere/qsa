@@ -382,7 +382,13 @@ class QSAProject:
         project.setCrs(crs)
 
         self.debug("Write QGIS project")
-        rc = project.write(self._qgis_project_uri)
+        dbname = config().qgisserver_projects_psql_dbname
+        user = config().qgisserver_projects_psql_user
+        password = config().qgisserver_projects_psql_password
+        host = config().qgisserver_projects_psql_host
+        port = config().qgisserver_projects_psql_port
+        uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+        rc = project.write(uri)
 
         # create mapproxy config file
         if self._mapproxy_enabled:
