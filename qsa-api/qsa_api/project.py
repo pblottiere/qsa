@@ -85,8 +85,12 @@ class QSAProject:
                 )
                 p.append(QSAProject(name))
         else:
-            service = config().qgisserver_projects_psql_service
-            uri = f"postgresql:?service={service}&schema={schema}"
+            dbname = config().qgisserver_projects_psql_dbname
+            user = config().qgisserver_projects_psql_user
+            password = config().qgisserver_projects_psql_password
+            host = config().qgisserver_projects_psql_host
+            port = config().qgisserver_projects_psql_port
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
 
             storage = (
                 QgsApplication.instance()
@@ -389,7 +393,7 @@ class QSAProject:
         port = config().qgisserver_projects_psql_port
         uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
         rc = project.write(uri)
-
+        self.debug(f"Create Project ok : {rc}")
         # create mapproxy config file
         if self._mapproxy_enabled:
             self.debug("Write MapProxy configuration file")
