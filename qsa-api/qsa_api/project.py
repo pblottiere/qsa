@@ -273,9 +273,6 @@ class QSAProject:
      
         
         flags = Qgis.ProjectReadFlags()
-        flags |= Qgis.ProjectReadFlag.FlagDontLoadLayouts
-        flags |= Qgis.ProjectReadFlag.FlagTrustLayerMetadata
-        flags |= Qgis.ProjectReadFlag.FlagDontLoad3DViews
 
         project = QgsProject()
         project.read(self._qgis_project_uri, flags)
