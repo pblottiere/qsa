@@ -911,9 +911,7 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            self.debug(f"postgresql://{user}:{password}@{host}:{port}/{dbname}?project={self.name}")
-            return f"postgresql:?{user}:{password}@{host}:{port}/{dbname}?project={self.name}"
-        
-            return f"postgresql:?service={service}&schema={self.schema}&project={self.name}"
+            self.debug(f"postgresql:?qsa:qsa@postgres:5432/qsa?sslmode=disable&schema=public&project={self.name}")
+            return f"postgresql:?qsa:qsa@postgres:5432/qsa?sslmode=disable&schema=public&project={self.name}"
         else:
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
