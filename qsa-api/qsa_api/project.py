@@ -12,6 +12,7 @@ from qgis.core import (
     QgsProject,
     QgsWkbTypes,
     QgsMapLayer,
+    QgsDataSourceUri,
     QgsFillSymbol,
     QgsLineSymbol,
     QgsApplication,
@@ -421,7 +422,19 @@ class QSAProject:
         lyr = None
         if t == Qgis.LayerType.Vector:
             self.debug("Init vector layer")
-            lyr = QgsVectorLayer(datasource, name, provider)
+            dbname = config().qgisserver_projects_psql_dbname
+            user = config().qgisserver_projects_psql_user
+            password = config().qgisserver_projects_psql_password
+            host = config().qgisserver_projects_psql_host
+            port = config().qgisserver_projects_psql_port
+            tableName = datasource.split(".")[1].replace('"',"").replace("(wkb_geometry)","").strip()
+            uri = QgsDataSourceUri()    
+            uri.setConnection(host, port, dbname, user, password)
+            uri.setDataSource("public",tableName, "wkb_geometry")
+
+            datasourceNew = uri.uri(False)
+            
+            lyr = QgsVectorLayer(datasourceNew, name, provider)
         elif t == Qgis.LayerType.Raster:
             self.debug("Init raster layer")
             lyr = QgsRasterLayer(datasource, name, provider)
