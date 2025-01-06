@@ -97,7 +97,7 @@ class QSAProject:
                 .projectStorageRegistry()
                 .projectStorageFromType("postgresql")
             )
-            for pname in storage.listProjects(uri):
+            for pname in storage.listProjects(uri): 
                 p.append(QSAProject(pname, schema))
 
         return p
@@ -272,9 +272,9 @@ class QSAProject:
         for a in project.mapLayers(False):
             self.debug(f"layer_name : {a}")
         
-        self.debug(f"layer_name : {layer_name}")
+        self.debug(f"Layer name use : {layer_name.strip()}")
         style_path = self._qgis_project_dir / f"{style_name}.qml"
-        layer = project.mapLayersByName(layer_name)[0]
+        layer = project.mapLayersByName(layer_name.strip())
 
         self.debug("project.mapLayersByName")
         if style_name not in layer.styleManager().styles():
@@ -904,7 +904,7 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            self.debug(f"postgresql://qsa:qsa@postgres:5432/qsa?sslmode=disable&schema={self.schema}&project={self.name}")
-            return f"postgresql://qsa:qsa@postgres:5432/qsa?sslmode=disable&schema={self.schema}&project={self.name}"
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+            return f"{uri}&project={self.name}"
         else:
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
