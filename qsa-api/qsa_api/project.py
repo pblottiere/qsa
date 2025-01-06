@@ -347,7 +347,7 @@ class QSAProject:
             password = config().qgisserver_projects_psql_password
             host = config().qgisserver_projects_psql_host
             port = config().qgisserver_projects_psql_port
-            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+            uri = f"postgres://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
             self.debug(uri)
             storage = (
                 QgsApplication.instance()
@@ -355,7 +355,7 @@ class QSAProject:
                 .projectStorageFromType("postgresql")
             )
             projects = storage.listProjects(uri)
-
+            self.debug(f"test {len(projects)}")
             # necessary step if the project has been created without QSA
             if self.name in projects:
                 self._qgis_projects_dir().mkdir(parents=True, exist_ok=True)
