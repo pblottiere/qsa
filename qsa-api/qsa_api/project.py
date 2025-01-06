@@ -784,12 +784,15 @@ class QSAProject:
                 symbol = QgsLineSymbol.createSimple(properties_line)
 
             case "marker": 
+                    
                     properties_marker = {
                     }
+                    
+                    testSplit =str(properties["color"]).split(',')
                     symbol = QgsMarkerSymbol.createSimple(properties_marker)
                     svg_layer = QgsSvgMarkerSymbolLayer(properties["symbol_path"])
                     
-                    svg_layer.setColor(QColor(properties["color"]))
+                    svg_layer.setColor(QColor(testSplit[0],testSplit[1],testSplit[2],testSplit[3]))
                     svg_layer.setSize(properties["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
             case other:  
