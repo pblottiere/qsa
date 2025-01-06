@@ -71,11 +71,12 @@ class QSAProject:
         p = []
 
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
-            for i in QSAProject._qgis_projects_dir().glob("**/*.qgs"):
-                name = i.parent.name.replace(
-                    QSAProject._qgis_project_dir_prefix(), ""
-                )
-                p.append(QSAProject(name))
+            # for i in QSAProject._qgis_projects_dir().glob("**/*.qgs"):
+            #     name = i.parent.name.replace(
+            #         QSAProject._qgis_project_dir_prefix(), ""
+            #     )
+            #     p.append(QSAProject(name))
+            return p
         else:
             dbname = config().qgisserver_projects_psql_dbname
             user = config().qgisserver_projects_psql_user
