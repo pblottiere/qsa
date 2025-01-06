@@ -274,7 +274,7 @@ class QSAProject:
         
         self.debug(f"Layer name use : {layer_name.strip()}")
         style_path = self._qgis_project_dir / f"{style_name}.qml"
-        layer = project.mapLayersByName(layer_name.strip())
+        layer = project.mapLayersByName(layer_name.strip())[0]
 
         self.debug("project.mapLayersByName")
         if style_name not in layer.styleManager().styles():
