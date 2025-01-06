@@ -275,15 +275,8 @@ class QSAProject:
         
         self.debug("clear_cache is finish")
      
-        
-        dbname = config().qgisserver_projects_psql_dbname
-        user = config().qgisserver_projects_psql_user
-        password = config().qgisserver_projects_psql_password
-        host = config().qgisserver_projects_psql_host
-        port = config().qgisserver_projects_psql_port
-        uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public&project={self.name}"
         project = QgsProject()
-        project.read(uri)
+        project.read(self._qgis_project_uri)
 
         self.debug(f"project.read : {len(project.mapLayers(False))}")
         style_path = self._qgis_project_dir / f"{style_name}.qml"
