@@ -340,7 +340,6 @@ class QSAProject:
         return rc
 
     def exists(self) -> bool:
-        return True
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
             return self._qgis_project_dir.exists()
         else:
