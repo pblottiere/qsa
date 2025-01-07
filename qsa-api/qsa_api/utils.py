@@ -52,7 +52,7 @@ def qgisserver_base_url(project: str, psql_schema: str) -> str:
         password = config().qgisserver_projects_psql_password
         host = config().qgisserver_projects_psql_host
         port = config().qgisserver_projects_psql_port
-        url = f"{url}?MAP=postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public&project={project}"
+        url = f"{url}?MAP=postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable%26schema=public%26project={project}&"
     return url
 
 
