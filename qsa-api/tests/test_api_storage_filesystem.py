@@ -296,6 +296,7 @@ class APITestCaseFilesystem(unittest.TestCase):
         data["symbology"] = {"type": "single_symbol", "symbol": "line"}
         data["symbology"]["properties"] = {"outline_width": 0.5}
         data["symbology"]["properties"] = {"outline_style": "dash"}
+        data["symbology"]["properties"] = {"outline_color": "#FF00FF"}
         data["rendering"] = {"opacity": 0.4}
         p = self.app.post(f"/api/projects/{TEST_PROJECT_0}/styles", data)
         self.assertEqual(p.status_code, 201)
@@ -428,6 +429,7 @@ class APITestCaseFilesystem(unittest.TestCase):
             "color": "#00BBBB",
             "style": "cross",
             "outline_width": 0.16,
+            "outline_style":"solid",
             "outline_color": "#002222",
         }
         data["rendering"] = {}
