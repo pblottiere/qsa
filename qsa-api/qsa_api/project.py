@@ -78,14 +78,14 @@ class QSAProject:
                 p.append(QSAProject(name))
             return p
         else:
-            # dbname = config().qgisserver_projects_psql_dbname
-            # user = config().qgisserver_projects_psql_user
-            # password = config().qgisserver_projects_psql_password
-            # host = config().qgisserver_projects_psql_host
-            # port = config().qgisserver_projects_psql_port
-            
-            service = config().qgisserver_projects_psql_service
-            uri = f"postgresql:?service={service}&schema={schema}"
+            dbname = config().qgisserver_projects_psql_dbname
+            user = config().qgisserver_projects_psql_user
+            password = config().qgisserver_projects_psql_password
+            host = config().qgisserver_projects_psql_host
+            port = config().qgisserver_projects_psql_port
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+            # service = config().qgisserver_projects_psql_service
+            # uri = f"postgresql:?service={service}&schema={schema}"
 
             storage = (
                 QgsApplication.instance()
@@ -329,14 +329,14 @@ class QSAProject:
         if StorageBackend.type() == StorageBackend.FILESYSTEM:
             return self._qgis_project_dir.exists()
         else:
-            # dbname = config().qgisserver_projects_psql_dbname
-            # user = config().qgisserver_projects_psql_user
-            # password = config().qgisserver_projects_psql_password
-            # host = config().qgisserver_projects_psql_host
-            # port = config().qgisserver_projects_psql_port
-            #uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
-            service = config().qgisserver_projects_psql_service
-            uri = f"postgresql:?service={service}&schema={self.schema}"
+            dbname = config().qgisserver_projects_psql_dbname
+            user = config().qgisserver_projects_psql_user
+            password = config().qgisserver_projects_psql_password
+            host = config().qgisserver_projects_psql_host
+            port = config().qgisserver_projects_psql_port
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public"
+            # service = config().qgisserver_projects_psql_service
+            # uri = f"postgresql:?service={service}&schema={self.schema}"
             self.debug(uri)
             storage = (
                 QgsApplication.instance()
@@ -427,19 +427,19 @@ class QSAProject:
         lyr = None
         if t == Qgis.LayerType.Vector:
             self.debug("Init vector layer")
-            # dbname = config().qgisserver_projects_psql_dbname
-            # user = config().qgisserver_projects_psql_user
-            # password = config().qgisserver_projects_psql_password
-            # host = config().qgisserver_projects_psql_host
-            # port = config().qgisserver_projects_psql_port
-            # tableName = datasource.split(".")[1].replace('"',"").replace("(wkb_geometry)","").strip()
-            # uri = QgsDataSourceUri()    
-            # uri.setConnection(host, port, dbname, user, password)
-            # uri.setDataSource("public",tableName, "wkb_geometry")
+            dbname = config().qgisserver_projects_psql_dbname
+            user = config().qgisserver_projects_psql_user
+            password = config().qgisserver_projects_psql_password
+            host = config().qgisserver_projects_psql_host
+            port = config().qgisserver_projects_psql_port
+            tableName = datasource.split(".")[1].replace('"',"").replace("(wkb_geometry)","").strip()
+            uri = QgsDataSourceUri()    
+            uri.setConnection(host, port, dbname, user, password)
+            uri.setDataSource("public",tableName, "wkb_geometry")
 
-            # datasourceNew = uri.uri(False)
+            datasourceNew = uri.uri(False)
             
-            lyr = QgsVectorLayer(datasource, name, provider)
+            lyr = QgsVectorLayer(datasourceNew, name, provider)
         elif t == Qgis.LayerType.Raster:
             self.debug("Init raster layer")
             lyr = QgsRasterLayer(datasource, name, provider)
@@ -912,14 +912,14 @@ class QSAProject:
     @property
     def _qgis_project_uri(self) -> str:
         if StorageBackend.type() == StorageBackend.POSTGRESQL:
-            # dbname = config().qgisserver_projects_psql_dbname
-            # user = config().qgisserver_projects_psql_user
-            # password = config().qgisserver_projects_psql_password
-            # host = config().qgisserver_projects_psql_host
-            # port = config().qgisserver_projects_psql_port
-            # uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public&project={self.name}"
-            
-            service = config().qgisserver_projects_psql_service
-            return f"postgresql:?service={service}&schema={self.schema}&project={self.name}"
+            dbname = config().qgisserver_projects_psql_dbname
+            user = config().qgisserver_projects_psql_user
+            password = config().qgisserver_projects_psql_password
+            host = config().qgisserver_projects_psql_host
+            port = config().qgisserver_projects_psql_port
+            uri = f"postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public&project={self.name}"
+            return uri
+            # service = config().qgisserver_projects_psql_service
+            # return f"postgresql:?service={service}&schema={self.schema}&project={self.name}"
         else:
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
