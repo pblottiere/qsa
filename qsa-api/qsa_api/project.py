@@ -914,6 +914,7 @@ class QSAProject:
     @property
     def _qgis_project_uri(self) -> str:
         if StorageBackend.type() == StorageBackend.POSTGRESQL:
+            self.debug("POSTGRESQL")
             dbname = config().qgisserver_projects_psql_dbname
             user = config().qgisserver_projects_psql_user
             password = config().qgisserver_projects_psql_password
@@ -924,4 +925,5 @@ class QSAProject:
             # service = config().qgisserver_projects_psql_service
             # return f"postgresql:?service={service}&schema={self.schema}&project={self.name}"
         else:
+            self.debug("FILESYSTEM")
             return (self._qgis_project_dir / f"{self.name}.qgs").as_posix()
