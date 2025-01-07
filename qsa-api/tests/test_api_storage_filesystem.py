@@ -408,11 +408,11 @@ class APITestCaseFilesystem(unittest.TestCase):
         data["name"] = "style_line"
         data["symbology"] = {"type": "single_symbol", "symbol": "line"}
         data["symbology"]["properties"] = {
-            "line_width": 0.75,
-            "line_style": "dash",
+            "outline_width": 0.75,
+            "outline_style": "dash",
             "customdash": "10;3",
             "use_custom_dash": "1",
-            "line_color": "#0055FF",
+            "outline_color": "#0055FF",
         }
         data["rendering"] = {}
         p = self.app.post(f"/api/projects/{TEST_PROJECT_0}/styles", data)
