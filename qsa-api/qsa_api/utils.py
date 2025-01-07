@@ -47,6 +47,11 @@ def qgisserver_base_url(project: str, psql_schema: str) -> str:
     elif StorageBackend.type() == StorageBackend.POSTGRESQL:
         #service = config().qgisserver_projects_psql_service
         #url = f"{url}?MAP=postgresql:?service={service}%26schema={psql_schema}%26project={project}&"
+        dbname = config().qgisserver_projects_psql_dbname
+        user = config().qgisserver_projects_psql_user
+        password = config().qgisserver_projects_psql_password
+        host = config().qgisserver_projects_psql_host
+        port = config().qgisserver_projects_psql_port
         url = f"{url}?MAP=postgresql://{user}:{password}@{host}:{port}/{dbname}?sslmode=disable&schema=public&project={project}"
     return url
 
