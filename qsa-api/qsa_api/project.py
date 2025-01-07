@@ -692,9 +692,9 @@ class QSAProject:
                         "outline_width" : categorized_value["outline_width"],
                         "outline_style" : categorized_value["outline_style"],
                         "outline_color" : categorized_value["outline_color"],
+                        "color"         :categorized_value["color"]
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
-                    symbol.setColor(QColor(categorized_value["color"]))
 
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
@@ -704,9 +704,9 @@ class QSAProject:
                     properties = {
                         "outline_width" : categorized_value["outline_width"],
                         "outline_style" : categorized_value["outline_style"],
+                        "color"         : categorized_value["outline_color"]
                     }
                     symbol = QgsLineSymbol.createSimple(properties)
-                    symbol.setColor(QColor(categorized_value["outline_color"]))
 
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
@@ -742,9 +742,9 @@ class QSAProject:
                         "outline_width" : graduated_value["outline_width"], 
                         "outline_style" : graduated_value["outline_style"],
                         "outline_color" : graduated_value["outline_color"],
+                        "color"         : graduated_value["color"],
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
-                    symbol.setColor(QColor(graduated_value["color"]))
 
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
                     ranges.append(range)
@@ -754,9 +754,9 @@ class QSAProject:
                     properties = {
                         "line_width" : graduated_value["outline_width"],
                         "line_style" : graduated_value["outline_style"],
+                        "color"      : graduated_value["outline_color"],
                     }
                     symbol = QgsLineSymbol.createSimple(properties)
-                    symbol.setColor(QColor(graduated_value["outline_color"]))
 
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
                     ranges.append(range)
