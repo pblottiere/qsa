@@ -716,7 +716,7 @@ class QSAProject:
                     }
                     symbol = QgsMarkerSymbol.createSimple(properties)
                     svg_layer = QgsSvgMarkerSymbolLayer(categorized_value["symbol_path"])
-                    testSplit =str(properties["color"]).split(",")
+                    testSplit =str(categorized_value["color"]).split(",")
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setSize(categorized_value["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
@@ -767,7 +767,7 @@ class QSAProject:
                     }
                     symbol = QgsMarkerSymbol.createSimple(properties)
                     svg_layer = QgsSvgMarkerSymbolLayer(graduated_value["symbol_path"])
-                    testSplit =str(properties["color"]).split(",")
+                    testSplit =str(graduated_value["color"]).split(",")
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setSize(graduated_value["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
