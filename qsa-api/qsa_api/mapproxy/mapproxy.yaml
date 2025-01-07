@@ -1,11 +1,8 @@
 services:
   demo:
-  tms:
-    use_grid_names: true
-    origin: 'nw'
-  kml:
-      use_grid_names: true
-  wmts:
+  tms: false
+  kml: false
+  wmts: false
   wms:
     versions: ['1.3.0']
     md:
@@ -15,7 +12,19 @@ services:
 grids:
     webmercator:
         base: GLOBAL_WEBMERCATOR
+        srs: 'EPSG:3857'
+        tile_size: [256, 256]
+        origin: 'nw'           # Origine pour correspondre à la norme EPSG:3857
 
 globals:
+  cache:
+    meta_factor: 4          # Facteur de méta-tuiles pour augmenter les performances
+    lock_timeout: 60        # Timeout pour éviter les blocages en écriture
   image:
-    paletted: false
+    paletted: false          # Désactivation des palettes pour un rendu rapide
+  http:
+    client_timeout: 10       # Timeout global pour éviter les connexions lentes
+    headers:
+      Cache-Control: 'public, max-age=31536000'  # Encourager la mise en cache client
+  log:
+    level: 'WARNING'         # Réduction de la verbosité pour limiter les accès disque
