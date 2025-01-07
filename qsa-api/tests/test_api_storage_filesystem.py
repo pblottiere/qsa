@@ -295,6 +295,7 @@ class APITestCaseFilesystem(unittest.TestCase):
         data["name"] = "style_line"
         data["symbology"] = {"type": "single_symbol", "symbol": "line"}
         data["symbology"]["properties"] = {"outline_width": 0.5}
+        data["symbology"]["properties"] = {"outline_style": "dash"}
         data["rendering"] = {"opacity": 0.4}
         p = self.app.post(f"/api/projects/{TEST_PROJECT_0}/styles", data)
         self.assertEqual(p.status_code, 201)
