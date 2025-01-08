@@ -14,6 +14,9 @@ grids:
         origin: 'nw'           # Origine pour correspondre à la norme EPSG:3857
 
 globals:
+  cache:
+      meta_size: [4, 4]
+      meta_buffer: 80
   image:
     paletted: false          # Désactivation des palettes pour un rendu rapide
   http:
