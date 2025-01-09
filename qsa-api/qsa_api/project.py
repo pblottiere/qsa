@@ -696,7 +696,8 @@ class QSAProject:
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
 
-                    range = QgsRendererCategory(categorized_value["value"], symbol, "test")
+                    time = QDateTime.fromString(categorized_value["value"], "yyyy-MM-dd HH:mm:ss")
+                    range = QgsRendererCategory(time, symbol, "test")                
                     ranges.append(range)
                 
             case "line":  
