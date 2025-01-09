@@ -803,8 +803,8 @@ class QSAProject:
                     "line_width" : properties["outline_width"],
                     "line_style" : properties["outline_style"],
                     "color" : properties["outline_color"],
-                    "capstyle":"round",
-                    "joinstyle":"round",
+                    "cap_style":"round",
+                    "join_style":"round",
                 }
                 symbol = QgsLineSymbol.createSimple(properties_line)
 
