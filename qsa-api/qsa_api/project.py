@@ -443,7 +443,9 @@ class QSAProject:
         elif t == Qgis.LayerType.Raster:
             self.debug("Init raster layer")
             lyr = QgsRasterLayer(datasource, name, provider)
-
+            
+            lyr.setContrastEnhancement(QgsContrastEnhancement.ContrastEnhancementAlgorithm.StretchToMinimumMaximum)
+            
             ovr = RasterOverview(lyr)
             if overview:
                 if not ovr.is_valid():
