@@ -1,5 +1,6 @@
 services:
   demo:
+  wmts:
   wms:
     versions: ['1.3.0']
     md:
