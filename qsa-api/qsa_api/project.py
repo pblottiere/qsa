@@ -705,9 +705,10 @@ class QSAProject:
             case "line":  
                 for categorized_value in properties["list_categorized"]:
                     properties = {
-                        "outline_width" : categorized_value["outline_width"],
-                        "outline_style" : categorized_value["outline_style"],
-                        "color"         : categorized_value["outline_color"]
+                        "line_width" : categorized_value["outline_width"],
+                        "line_style" : categorized_value["outline_style"],
+                        "color"         : categorized_value["outline_color"],
+                        "outline_width_unit" : "MM"
                     }
                     symbol = QgsLineSymbol.createSimple(properties)
 
@@ -723,6 +724,7 @@ class QSAProject:
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(categorized_value["size"])
+                    svg_layer.setSizeUnit(0)
                     symbol.changeSymbolLayer(0, svg_layer)
                     
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
@@ -747,7 +749,8 @@ class QSAProject:
                         "outline_width" : graduated_value["outline_width"], 
                         "outline_style" : graduated_value["outline_style"],
                         "outline_color" : graduated_value["outline_color"],
-                        "color"         : graduated_value["color"],
+                        "outline_width_unit" : "MM",
+                        "color": graduated_value["color"]
                     }
                     symbol = QgsFillSymbol.createSimple(properties)
 
@@ -760,6 +763,7 @@ class QSAProject:
                         "line_width" : graduated_value["outline_width"],
                         "line_style" : graduated_value["outline_style"],
                         "color"      : graduated_value["outline_color"],
+                        "line_width_unit" : "MM"
                     }
                     symbol = QgsLineSymbol.createSimple(properties)
 
@@ -775,6 +779,7 @@ class QSAProject:
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(graduated_value["size"])
+                    svg_layer.setSizeUnit(0)
                     symbol.changeSymbolLayer(0, svg_layer)
                     
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
@@ -798,6 +803,7 @@ class QSAProject:
                     "outline_style" : properties["outline_style"],
                     "outline_color" : properties["outline_color"],
                     "color" : properties["color"],
+                    "outline_width_unit" : "MM"
                 }
                 symbol = QgsFillSymbol.createSimple(properties_fill)
             case "line":
@@ -807,7 +813,7 @@ class QSAProject:
                     "color" : properties["outline_color"],
                     "capstyle":"round",
                     "line_width_unit":"MM",
-                    "joinstyle":"round",
+                    "joinstyle":"round"
                 }
                 symbol = QgsLineSymbol.createSimple(properties_line)
 
@@ -823,6 +829,7 @@ class QSAProject:
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(properties["size"])
+                    svg_layer.setSizeUnit(0)
                     symbol.changeSymbolLayer(0, svg_layer)
             case other:  
                     return None #Not implement
