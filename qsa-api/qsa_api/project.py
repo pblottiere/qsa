@@ -12,6 +12,7 @@ from qgis.core import (
     QgsProject,
     QgsWkbTypes,
     QgsMapLayer,
+    QgsUnitTypes,
     QgsDataSourceUri,
     QgsFillSymbol,
     QgsLineSymbol,
@@ -725,7 +726,7 @@ class QSAProject:
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(categorized_value["size"])
                     symbol.changeSymbolLayer(0, svg_layer)
-                    symbol.setSizeUnit(0)
+                    symbol.setSizeUnit(QgsUnitTypes.RenderMillimeters)
                     
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
@@ -779,7 +780,7 @@ class QSAProject:
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(graduated_value["size"])
-                    symbol.setSizeUnit(0)
+                    symbol.setSizeUnit(QgsUnitTypes.RenderMillimeters)
                     symbol.changeSymbolLayer(0, svg_layer)
                     
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
@@ -829,7 +830,7 @@ class QSAProject:
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(properties["size"])
-                    symbol.setSizeUnit(0)
+                    symbol.setSizeUnit(QgsUnitTypes.RenderMillimeters)
                     symbol.changeSymbolLayer(0, svg_layer)
             case other:  
                     return None #Not implement
