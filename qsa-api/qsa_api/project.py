@@ -724,8 +724,8 @@ class QSAProject:
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(categorized_value["size"])
-                    svg_layer.setSizeUnit(0)
                     symbol.changeSymbolLayer(0, svg_layer)
+                    symbol.setSizeUnit(0)
                     
                     range = QgsRendererCategory(categorized_value["value"], symbol, "test")
                     ranges.append(range)
@@ -779,7 +779,7 @@ class QSAProject:
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(graduated_value["size"])
-                    svg_layer.setSizeUnit(0)
+                    symbol.setSizeUnit(0)
                     symbol.changeSymbolLayer(0, svg_layer)
                     
                     range = QgsRendererRange(graduated_value["min"], graduated_value["max"], symbol, "test")
@@ -829,7 +829,7 @@ class QSAProject:
                     svg_layer.setColor(QColor(int(testSplit[0]),int(testSplit[1]),int(testSplit[2]),int(testSplit[3])))
                     svg_layer.setStrokeColor(QColor(0,0,0,int(testSplit[3])))
                     svg_layer.setSize(properties["size"])
-                    svg_layer.setSizeUnit(0)
+                    symbol.setSizeUnit(0)
                     symbol.changeSymbolLayer(0, svg_layer)
             case other:  
                     return None #Not implement
