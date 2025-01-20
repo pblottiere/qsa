@@ -7,8 +7,9 @@ RUN apt-get update \
     virtualenv \
     && rm -rf /var/lib/apt/lists/*
 
-COPY . . 
+WORKDIR /qsa
 
+COPY . . 
 
 WORKDIR /qsa/qsa-api
 RUN rm -rf venv \
