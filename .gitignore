@@ -11,3 +11,6 @@ docs/build
 sandbox/projects
 *.aux.xml
 sandbox/*.png
+mapproxy/
+mapproxy-data/
+projects/

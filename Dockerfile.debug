@@ -17,10 +17,11 @@ RUN rm -rf venv \
     && . venv/bin/activate \
     && pip install poetry \
     && pip install gunicorn \
-    && poetry install
+    && poetry install \
+    && poetry add debugpy
 ENV PATH=/qsa/qsa-api/venv/bin:$PATH
 
 EXPOSE 5000
 EXPOSE 5678
 
-CMD ["gunicorn"  , "-b", "0.0.0.0:5000", "--workers", "1", "--threads", "1", "qsa_api.app:app"]
+CMD ["python", "-m", "debugpy", "--wait-for-client", "--listen", "0.0.0.0:5678", "-m", "gunicorn"  , "-b", "0.0.0.0:5000", "--workers", "1", "--threads", "1", "qsa_api.app:app"]
