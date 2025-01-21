@@ -403,7 +403,7 @@ class QSAProject:
 
         lyr = None
         if t == Qgis.LayerType.Vector:
-            self.debug(f"Init vector layer : ",datasource)
+            self.debug(f"Init vector layer :{datasource} ")
             lyr = QgsVectorLayer(datasource, name, "postgres")
         elif t == Qgis.LayerType.Raster:
             self.debug("Init raster layer")
